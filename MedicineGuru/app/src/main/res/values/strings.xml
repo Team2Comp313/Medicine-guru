@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MedicineGuru</string>
+    <string name="card1">Medicine at Doorsteps</string>
+    <string name="card2">Save time</string>
+    <string name="card3">Upload prescription</string>
+    <string name="card1detail">Get medicines deliverd at your door steps without any hastle</string>
+    <string name="card2detail">No need to get around to pharmacies</string>
+    <string name="card3detail">Upload prescription and get medicine them anywhere you want</string>
+
+
+</resources>
