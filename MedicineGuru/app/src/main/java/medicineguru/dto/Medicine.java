@@ -1,6 +1,11 @@
 package medicineguru.dto;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -8,21 +13,32 @@ import java.util.UUID;
  */
 
 public class Medicine {
-
+    public String medId;
     public String name;
     public String title;
     public String description;
     public int size;
     public String color;
-    public Collection<Symptom> symptoms;
-    public Collection<Image> images;
+    public List<Symptom> symptoms;
+    public List<Image> images;
     public  Dose dosage;
     public  String form;
 
     public Medicine() {
     }
-
-    public Medicine(String name, String title, String description, int size, String color, Collection<Symptom> symptoms, Collection<Image> images, Dose dosage, String form) {
+    public Medicine(String medId,String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
+       this.medId=medId;
+        this.name = name;
+        this.title = title;
+        this.description = description;
+        this.size = size;
+        this.color = color;
+        this.symptoms = symptoms;
+        this.images = images;
+        this.dosage = dosage;
+        this.form = form;
+    }
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
         this.name = name;
         this.title = title;
         this.description = description;
@@ -34,6 +50,28 @@ public class Medicine {
         this.form = form;
     }
 
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("medId", medId);
+        result.put("name",name);
+        result.put("title", title);
+        result.put("title", title);
+        result.put("description", description);
+        result.put("size", size);
+        result.put("symptoms", symptoms);
+        result.put("images", images);
+        result.put("dosage", dosage);
+        result.put("form", form);
+
+        return result;
+    }
+    public String getMedId() {
+        return medId;
+    }
+
+    public void setMedId(String medId) {
+        this.medId = medId;
+    }
     public String getName() {
         return name;
     }
@@ -74,19 +112,19 @@ public class Medicine {
         this.color = color;
     }
 
-    public Collection<Symptom> getSymptoms() {
+    public List<Symptom> getSymptoms() {
         return symptoms;
     }
 
-    public void setSymptoms(Collection<Symptom> symptoms) {
+    public void setSymptoms(List<Symptom> symptoms) {
         this.symptoms = symptoms;
     }
 
-    public Collection<Image> getImages() {
+    public List<Image> getImages() {
         return images;
     }
 
-    public void setImages(Collection<Image> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
