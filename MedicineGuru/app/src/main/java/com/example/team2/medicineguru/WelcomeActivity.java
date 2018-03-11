@@ -55,7 +55,7 @@ public class WelcomeActivity extends AhoyOnboarderActivity  {
     }
     @Override
     public void onFinishButtonPressed() {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         Toast.makeText(this, "Finish Pressed", Toast.LENGTH_SHORT).show();
     }

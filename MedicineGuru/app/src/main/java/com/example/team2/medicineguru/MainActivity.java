@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import medicineguru.UtilityClasses.LoginSessionManager;
 import medicineguru.databasehandler.FireBaseDatabaseHandler;
@@ -32,6 +33,8 @@ import medicineguru.dto.Symptom;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         LoginSessionManager session;
+    NavigationView navigationView;
+    Menu nav_Menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +59,10 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        hideShowMenuItems();
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -106,6 +111,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
+        }else if (id == R.id.login) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -118,7 +126,7 @@ public class MainActivity extends AppCompatActivity
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     // user is now signed out
-                                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                                    startActivity(new Intent(MainActivity.this, MainActivity.class));
                                     finish();
                                 }
                             });
@@ -136,12 +144,27 @@ public class MainActivity extends AppCompatActivity
         Symptom s1=new Symptom("Neck pain");
         Symptom s2=new Symptom("Body Ache");
         Image i1=new Image("/logo1.png");
-        Collection<Symptom> ss=new ArrayList<Symptom>();
-        Collection<Image> ii=new ArrayList<Image>();
+        List<Symptom> ss=new ArrayList<Symptom>();
+        List<Image> ii=new ArrayList<Image>();
         ss.add(s1);
         ss.add(s2);
         Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid");
         FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
-        db.createMedicine(medicine);
+        List<Medicine> medicines1=db.getMedicines();
+        List<Medicine> medicines=db.getMedicines("symptoms","name","Neck pain");
+        //db.createMedicine(medicine);
+
+    }
+    private void hideShowMenuItems()
+    {
+
+        if(session.isLoggedIn()){
+            navigationView.getMenu().findItem(R.id.logout).setVisible(true);
+            navigationView.getMenu().findItem(R.id.login).setVisible(false);
+        }
+        else {
+            navigationView.getMenu().findItem(R.id.login).setVisible(true);
+            navigationView.getMenu().findItem(R.id.logout).setVisible(false);
+        }
     }
 }
