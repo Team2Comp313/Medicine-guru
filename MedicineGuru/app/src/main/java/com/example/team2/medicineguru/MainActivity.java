@@ -26,6 +26,7 @@ import medicineguru.UtilityClasses.LoginSessionManager;
 import medicineguru.databasehandler.FireBaseDatabaseHandler;
 import medicineguru.dto.Dose;
 import medicineguru.dto.Image;
+
 import medicineguru.dto.Medicine;
 import medicineguru.dto.Symptom;
 import android.app.FragmentManager;
@@ -174,8 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(session.isLoggedIn()){
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
-        }
-        else {
+        } else {
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
         }
