@@ -5,7 +5,7 @@ package com.example.team2.medicineguru;
  */
 
 //Base class to hold information about our property
-public class Property {
+public class Product {
 
     //property basics
     private String title;
@@ -15,7 +15,7 @@ public class Property {
     private Boolean featured;
 
     //constructor
-    public Property(
+    public Product(
             String title, String description, Double price, String image, Boolean featured){
 
         this.title = title;

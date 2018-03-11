@@ -18,4 +18,5 @@
     <string name="sign_in_cancelled">Authentication error access denied</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="unknown_error">Unknown error occured</string>
+    <string name="portrait_message">This is Portrait mode fragment</string>
 </resources>
