@@ -150,7 +150,8 @@ public class MainActivity extends AppCompatActivity
         ss.add(s2);
         Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid");
         FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
-        db.getAllMedicine();
+        List<Medicine> medicines1=db.getMedicines();
+        List<Medicine> medicines=db.getMedicines("symptoms","name","Neck pain");
         //db.createMedicine(medicine);
 
     }

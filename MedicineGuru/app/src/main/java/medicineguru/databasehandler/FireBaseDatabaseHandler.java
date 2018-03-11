@@ -7,6 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class FireBaseDatabaseHandler {
     private List<Medicine> medicineList;
     public FireBaseDatabaseHandler()
     {
-        initializeMedicineListener();
+
         mFirebaseInstance = FirebaseDatabase.getInstance();
     }
     public void getNodeReference(String nodeName)
@@ -42,8 +43,59 @@ public class FireBaseDatabaseHandler {
         medicine.setMedId(medicineId);
         mDatabase.child(medicineId).setValue(medicine);
     }
-    public List<Medicine> getAllMedicines(){
+    public List<Medicine> getMedicines(){
+        initializeMedicineListener();
         return medicineList;
+    }
+    public List<Medicine> getMedicines(String type,String value){
+        initializeMedicineListener(type,value);
+        return medicineList;
+    }
+    public List<Medicine> getMedicines(String node,String type,String value){
+        initializeMedicineListener(node,type,value);
+        return medicineList;
+    }
+    public void initializeMedicineListener(String type,String value){
+        mDatabase=mFirebaseInstance.getReference();
+        Query query = mDatabase.child("Medicine").orderByChild(type).equalTo(value);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                medicineList=new ArrayList<Medicine>();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot medicine : dataSnapshot.getChildren()) {
+                        Medicine data = medicine.getValue(Medicine.class);
+                        medicineList .add(data);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void initializeMedicineListener(String node,String type,String value){
+        mDatabase=mFirebaseInstance.getReference();
+        Query query = mDatabase.child("Medicine").child("symptoms").orderByChild("name").equalTo("Neck pain");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                medicineList=new ArrayList<Medicine>();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot medicine : dataSnapshot.getChildren()) {
+                        Medicine data = medicine.getValue(Medicine.class);
+                        medicineList .add(data);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
     public void initializeMedicineListener()
     {
@@ -52,8 +104,9 @@ public class FireBaseDatabaseHandler {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot noteSnapshot: dataSnapshot.getChildren()){
-                    Medicine data = noteSnapshot.getValue(Medicine.class);
+                medicineList=new ArrayList<Medicine>();
+                for (DataSnapshot medicine: dataSnapshot.getChildren()){
+                    Medicine data = medicine.getValue(Medicine.class);
                     medicineList .add(data);
                 }
 
