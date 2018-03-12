@@ -34,7 +34,6 @@ dependencies {
     compile 'com.codemybrainsout.onboarding:onboarder:1.0.4'
     compile 'com.firebaseui:firebase-ui-auth:3.1.0'
     compile 'com.facebook.android:facebook-login:[4,5)'
-    compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 }
