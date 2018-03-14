@@ -5,4 +5,5 @@ package medicineguru.dto;
  */
 
 public class Symptoms {
+
 }

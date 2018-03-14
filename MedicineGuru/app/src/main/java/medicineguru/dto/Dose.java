@@ -33,6 +33,4 @@ public class Dose {
         this.quantity = quantity;
         this.unit = unit;
     }
-
-
 }

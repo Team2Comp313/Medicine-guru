@@ -5,7 +5,7 @@
     <string name="card3">Upload prescription</string>
     <string name="card1detail">Get medicines deliverd at your door steps without any hastle</string>
     <string name="card2detail">No need to get around to pharmacies</string>
-    <string name="card3detail">Upload prescription and get medicine them anywhere you want</string>
+    <string name="card3detail">Upload prescription and get medicine anywhere you want</string>
     <string name="facebook_application_id" translatable="false">226143411262381</string>
     <string name="facebook_app_id">226143411262381</string>
     <string name="fb_login_protocol_scheme">fb226143411262381</string>

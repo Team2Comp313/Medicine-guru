@@ -26,6 +26,7 @@ public class Medicine {
 
     public Medicine() {
     }
+
     public Medicine(String medId,String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
        this.medId=medId;
         this.name = name;
@@ -38,6 +39,7 @@ public class Medicine {
         this.dosage = dosage;
         this.form = form;
     }
+
     public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
         this.name = name;
         this.title = title;
