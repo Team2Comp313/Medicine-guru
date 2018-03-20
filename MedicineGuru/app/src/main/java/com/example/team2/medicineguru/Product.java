@@ -8,7 +8,6 @@ package com.example.team2.medicineguru;
 public class Product {
 
     //property basics
-    private String type;
     private String title;
     private String description;
     private String image;
@@ -16,14 +15,14 @@ public class Product {
     private Boolean featured;
 
     //constructor
-    public Product(String title, String description, Double price, String image, Boolean featured,String type){
+    public Product(
+            String title, String description, Double price, String image, Boolean featured){
 
         this.title = title;
         this.description = description;
         this.price = price;
         this.image = image;
         this.featured = featured;
-        this.type = type;
     }
 
     //getters
@@ -32,5 +31,4 @@ public class Product {
     public Double getPrice() {return price; }
     public String getImage() { return image; }
     public Boolean getFeatured(){return featured; }
-    public String getType(){return type; }
 }

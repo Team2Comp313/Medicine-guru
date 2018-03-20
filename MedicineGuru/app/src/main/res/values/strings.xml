@@ -19,18 +19,4 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="unknown_error">Unknown error occured</string>
     <string name="portrait_message">This is Portrait mode fragment</string>
-
-    <string name="label_loading">Please Wait…</string>
-    <string name="label_interval">Interval: </string>
-    <string name="label_indicator_size">Indicator size: </string>
-    <string name="label_animate_indicators">Animate indicators: </string>
-    <string name="label_hide_indicators">Hide Indicators</string>
-    <string name="label_loop_slides">Loop slides: </string>
-    <array name="page_indicators">
-        <item>Circle</item>
-        <item>Dash</item>
-        <item>Round Square</item>
-        <item>Square</item>
-        <item>Custom</item>
-    </array>
 </resources>

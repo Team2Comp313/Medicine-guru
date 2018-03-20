@@ -28,19 +28,15 @@ public class ProductList extends AppCompatActivity {
         //Find list view and bind it with the custom adapter
         ListView listView = findViewById(R.id.customListView);
         //create our property elements
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"slider"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 450.00, "medicine_comp313_1",false,"product"));
-        //comp313_products.add(new Product("","", 000.00, "sale_banner1", false,"banner"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", 320.00, "medicine_comp313_2",false,"product"));
-        comp313_products.add(new Product("","", 000.00, "sale_banner2", false,"banner"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_4" ,false,"product"));
-       /// comp313_products.add(new Product("","", 000.00, "sale_banner3", false,"banner"));
-        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_5" , false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
-//create our new array adapter
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", true));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 450.00, "medicine_comp313_1",false));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", true));
+        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", 320.00, "medicine_comp313_2",false));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", true));
+        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_4" ,false));
+        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_5" , false));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", true));
+        //create our new array adapter
         ArrayAdapter<Product> adapter = new propertyArrayAdapter(this, 0, comp313_products);
         listView.setAdapter(adapter);
         //add event listener so we can handle clicks
