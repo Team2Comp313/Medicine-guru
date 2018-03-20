@@ -1,10 +1,16 @@
 package com.example.team2.medicineguru;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -30,13 +36,13 @@ import medicineguru.dto.Image;
 import medicineguru.dto.Medicine;
 import medicineguru.dto.Symptom;
 import android.app.FragmentManager;
-import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     LoginSessionManager session;
     NavigationView navigationView;
     PM_Fragement pm_fragment;
-    Empty_Fragment start_fragment;
+    //Empty_Fragment start_fragment;
 
     Menu nav_Menu;
     @Override
@@ -49,9 +55,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //insertMedicine();
         setSupportActionBar(toolbar);
 
-        start_fragment = new Empty_Fragment();
+        //start_fragment = new Empty_Fragment();
+        pm_fragment = new PM_Fragement();
         FragmentManager fragmentManager = getFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.pm_fragment, start_fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.pm_fragment, pm_fragment).commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -117,12 +124,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
             pm_fragment = new PM_Fragement();
-            /*FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-            pm_fragment = new PM_Fragement();
-            fragmentTransaction.replace(R.id.pm_fragment, pm_fragment);
-            fragmentTransaction.commit();*/
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.pm_fragment, pm_fragment).commit();
         } else if (id == R.id.nav_slideshow) {
