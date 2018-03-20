@@ -8,11 +8,14 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:contentDescription="Property Image" />
+        android:layout_marginTop="20dp"
+        android:contentDescription="Property Image"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout
         android:id="@+id/infoSection"
@@ -21,40 +24,69 @@
         android:layout_toRightOf="@+id/image"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Product Title"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Description"
-            android:textSize="15sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/image"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="57dp"
+        android:text="Description"
+        android:textSize="15dp" />
 
     <RelativeLayout
         android:id="@+id/pricingSection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/image"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="21dp">
+        android:padding="2dp"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/description"
+        android:layout_alignStart="@+id/description">
 
         <TextView
             android:id="@+id/price"
-            android:layout_width="match_parent"
-
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Price" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:padding="5dp"
+            android:text="Price"
+            android:textColor="#000000"
+            android:textSize="17dp" />
+
+        <Button
+            android:id="@+id/cart"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/price"
+            android:layout_alignBottom="@+id/price"
+            android:layout_marginStart="27dp"
+            android:layout_toEndOf="@+id/price"
+            android:background="#f4a137"
+            android:padding="2dp"
+            android:text="Add to cart"
+            android:textColor="#ffffff"
+            android:textSize="10dp" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Product Title"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/infoSection"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

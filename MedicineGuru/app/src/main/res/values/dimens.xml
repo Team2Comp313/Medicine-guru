@@ -20,5 +20,14 @@
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="nav_body_dimen">65dp</dimen>
 
+    <dimen name="default_indicator_size">8dp</dimen>
+    <dimen name="default_indicator_margins">5dp</dimen>
+    <dimen name="default_dash_indicator_width">12dp</dimen>
+    <dimen name="round_square_indicator_radius">2dp</dimen>
+    <dimen name="max_slider_indicator_size">16dp</dimen>
 
+
+    <dimen name="standard_margin">8dp</dimen>
+    <dimen name="standard_margin_x2">16dp</dimen>
+    <dimen name="banner_slider_settings_margin">20dp</dimen>
 </resources>
