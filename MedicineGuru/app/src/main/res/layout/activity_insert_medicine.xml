@@ -71,26 +71,39 @@
 
         <EditText
             android:id="@+id/dosageAmountTxt"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:inputType="number"
             android:hint="@string/medicine_dosage_quantity" />
 
         <Spinner
             android:id="@+id/unitSpinner"
-            android:layout_width="150dp"
+            android:layout_width="185dp"
             android:layout_height="match_parent"
             android:entries="@array/medicine_unit" />
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/symptomTxt"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:inputType="textPersonName"
-        android:hint="Symptom" />
+        android:orientation="horizontal">
+
+        <AutoCompleteTextView
+            android:id="@+id/atSymptoms"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Symptom" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:onClick="add_symptoms"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
