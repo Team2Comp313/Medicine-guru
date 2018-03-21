@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void insertMedicine(){
+    /*public void insertMedicine(){
         Dose dose=new Dose(250,"mg");
         Image img=new Image("/logo.png");
         Symptom s1=new Symptom("Neck pain");
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
         //db.getAllMedicine();
         //db.createMedicine(medicine);
-    }
+    }*/
 
     private void hideShowMenuItems()
     {
