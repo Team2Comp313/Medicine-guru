@@ -18,12 +18,22 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
+import medicineguru.databasehandler.FireBaseDatabaseHandler;
 import medicineguru.dto.Dose;
+import medicineguru.dto.Image;
 import medicineguru.dto.Medicine;
 import medicineguru.dto.Symptom;
 
@@ -33,12 +43,12 @@ public class InsertMedicine extends AppCompatActivity {
     private TextView etPath;
     private EditText name, title, description, size, symptom, dose_amount;
     private Spinner colorSpinner, formSpinner, unitSpinner;
-
+    Uri imgPath;
     private static final int IMG_REQUEST_CODE = 13;
     private Uri filePath;
     private Bitmap bitmap;
     Medicine medicine;
-
+    FireBaseDatabaseHandler db;
     final String[] symptoms = {"Cold", "Cough", "Fever", "Anxiety", "Headache", "Drowsiness", "Constipation","High Blood Pressure"
             ,"Agitation","Nausea","Confusion","Dizziness","Poor Coordination","Slowed Breathing","High Body Temperature","Diarrhea"};
     AutoCompleteTextView atSymp;
@@ -49,6 +59,7 @@ public class InsertMedicine extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db=new FireBaseDatabaseHandler();
         setContentView(R.layout.activity_insert_medicine);
         medicineImage = findViewById(R.id.med_img);
         etPath = findViewById(R.id.etPath);
@@ -56,7 +67,7 @@ public class InsertMedicine extends AppCompatActivity {
         title = findViewById(R.id.titletxt);
         description = findViewById(R.id.descriptionTxt);
         size = findViewById(R.id.sizeTxt);
-        symptom = findViewById(R.id.symptomTxt);
+       // symptom = findViewById(R.id.symptomTxt);
         dose_amount = findViewById(R.id.dosageAmountTxt);
         colorSpinner = findViewById(R.id.colorSpinner);
         formSpinner = findViewById(R.id.formSpinner);
@@ -85,11 +96,25 @@ public class InsertMedicine extends AppCompatActivity {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
                 medicineImage.setImageBitmap(bitmap);
                 String path = filePath.getPath();
-                /*Cursor cursor = getContentResolver().query(filePath,proj,null,null,null);
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndex(proj[0]);
-                String path = cursor.getString(columnIndex);
-                cursor.close();*/
+                StorageReference imageRef=db.getStorageRefernce().child("images/"+ UUID.randomUUID().toString()+"."+data.getType());
+                
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] imageData = baos.toByteArray();
+
+                UploadTask uploadTask = imageRef.putBytes(imageData);
+                uploadTask.addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                        imgPath = taskSnapshot.getDownloadUrl();
+                    }
+                });
                 etPath.setText(path);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -141,9 +166,11 @@ public class InsertMedicine extends AppCompatActivity {
             Symptom s = new Symptom(symps.get(i));
             symptomsOfMedicine.add(s);
         }
-
+        List<Uri> imageList=new ArrayList<Uri>();
+        imageList.add(imgPath);
         //List<Image> to be changed to Image.
-         //medicine = new Medicine(nameOfMed,titleOfMed,descriptionOfMed,sizeOfMed,color,symptomsOfMedicine,path, dose, form);
+         medicine = new Medicine(nameOfMed,titleOfMed,descriptionOfMed,sizeOfMed,color,symptomsOfMedicine,imageList, dose, form);
+        db.createMedicine(medicine);
 
     }
 }
