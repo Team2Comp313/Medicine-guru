@@ -13,22 +13,55 @@ import java.util.UUID;
  */
 
 public class Medicine {
-    public String medId;
-    public String name;
-    public String title;
-    public String description;
-    public int size;
-    public String color;
-    public List<Symptom> symptoms;
-    public List<Image> images;
-    public  Dose dosage;
-    public  String form;
+    private String medId;
+    private String name;
+    private String title;
+    private String description;
+    private int size;
+    private String color;
+    private List<Symptom> symptoms;
+    private List<Image> images;
+    private  Dose dosage;
+    private  String form;
+    private long price;
+    private boolean requirePrescription;
+    private List<String> imagePath;
+
+    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<String> imagePath) {
+        this.medId = medId;
+        this.name = name;
+        this.title = title;
+        this.description = description;
+        this.size = size;
+        this.color = color;
+        this.symptoms = symptoms;
+        this.images = images;
+        this.dosage = dosage;
+        this.form = form;
+        this.price = price;
+        this.requirePrescription = requirePrescription;
+        this.imagePath = imagePath;
+    }
+
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<String> imagePath) {
+        this.name = name;
+        this.title = title;
+        this.description = description;
+        this.size = size;
+        this.color = color;
+        this.symptoms = symptoms;
+        this.images = images;
+        this.dosage = dosage;
+        this.form = form;
+        this.price = price;
+        this.requirePrescription = requirePrescription;
+        this.imagePath = imagePath;
+    }
 
     public Medicine() {
     }
 
-    public Medicine(String medId,String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
-       this.medId=medId;
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price) {
         this.name = name;
         this.title = title;
         this.description = description;
@@ -38,9 +71,11 @@ public class Medicine {
         this.images = images;
         this.dosage = dosage;
         this.form = form;
+        this.price = price;
     }
 
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
+    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<String> imagePath) {
+        this.medId = medId;
         this.name = name;
         this.title = title;
         this.description = description;
@@ -50,6 +85,22 @@ public class Medicine {
         this.images = images;
         this.dosage = dosage;
         this.form = form;
+        this.price = price;
+        this.imagePath = imagePath;
+    }
+
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<String> imagePath) {
+        this.name = name;
+        this.title = title;
+        this.description = description;
+        this.size = size;
+        this.color = color;
+        this.symptoms = symptoms;
+        this.images = images;
+        this.dosage = dosage;
+        this.form = form;
+        this.price = price;
+        this.imagePath = imagePath;
     }
 
     public Map<String, Object> toMap() {
@@ -67,6 +118,30 @@ public class Medicine {
 
         return result;
     }
+    public long getPrice() {
+        return price;
+    }
+
+    public boolean isRequirePrescription() {
+        return requirePrescription;
+    }
+
+    public void setRequirePrescription(boolean requirePrescription) {
+        this.requirePrescription = requirePrescription;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+    public List<String> getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(List<String> imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public String getMedId() {
         return medId;
     }

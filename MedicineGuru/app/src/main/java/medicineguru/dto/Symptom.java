@@ -5,7 +5,7 @@ package medicineguru.dto;
  */
 
 public class Symptom {
-    public String name;
+    private String name;
 
     public Symptom() {
     }
