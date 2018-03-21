@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.shopping_cart) {
             return true;
         }
 
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity
         List<Image> ii=new ArrayList<Image>();
         ss.add(s1);
         ss.add(s2);
-        Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid");
+        Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid",23);
         FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
         List<Medicine> medicines1=db.getMedicines();
         List<Medicine> medicines=db.getMedicines("symptoms","name","Neck pain");
