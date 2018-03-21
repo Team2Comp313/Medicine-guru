@@ -3,6 +3,7 @@
     package="com.example.team2.medicineguru">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +17,7 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,8 +31,8 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".InsertMedicineActivity" />
-        <activity android:name=".ProductList">
-        </activity>
+        <activity android:name=".ProductList" />
+        <activity android:name=".InsertMedicine"></activity>
     </application>
+
 </manifest>
