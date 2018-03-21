@@ -18,7 +18,7 @@ import java.util.List;
 public class ProductList extends AppCompatActivity {
 
     // Definig Array List - Object Type
-    private ArrayList<Property> comp313_products = new ArrayList<>();
+    private ArrayList<Product> comp313_products = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +28,20 @@ public class ProductList extends AppCompatActivity {
         //Find list view and bind it with the custom adapter
         ListView listView = findViewById(R.id.customListView);
         //create our property elements
-        comp313_products.add(new Property("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 450.00, "medicine_comp313_1",false));
-        comp313_products.add(new Property("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", 320.00, "medicine_comp313_2",false));
-        comp313_products.add(new Property("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", true));
-        comp313_products.add(new Property("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_4" ,false));
-        comp313_products.add(new Property("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_5" , false));
-        //create our new array adapter
-        ArrayAdapter<Property> adapter = new propertyArrayAdapter(this, 0, comp313_products);
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"slider"));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 450.00, "medicine_comp313_1",false,"product"));
+        //comp313_products.add(new Product("","", 000.00, "sale_banner1", false,"banner"));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
+        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", 320.00, "medicine_comp313_2",false,"product"));
+        comp313_products.add(new Product("","", 000.00, "sale_banner2", false,"banner"));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
+        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_4" ,false,"product"));
+       /// comp313_products.add(new Product("","", 000.00, "sale_banner3", false,"banner"));
+        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_5" , false,"product"));
+        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
+//create our new array adapter
+        ArrayAdapter<Product> adapter = new propertyArrayAdapter(this, 0, comp313_products);
         listView.setAdapter(adapter);
         //add event listener so we can handle clicks
         AdapterView.OnItemClickListener adapterViewListener = new AdapterView.OnItemClickListener() {
@@ -42,7 +49,7 @@ public class ProductList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Property property = comp313_products.get(position);
+                Product property = comp313_products.get(position);
 
                 Intent intent = new Intent(ProductList.this,DetailActivity.class);
                 intent.putExtra("title", property.getTitle());
@@ -57,34 +64,34 @@ public class ProductList extends AppCompatActivity {
     }
 
     //custom ArrayAdapater
-    class propertyArrayAdapter extends ArrayAdapter<Property>{
+    class propertyArrayAdapter extends ArrayAdapter<Product>{
 
         private Context context;
-        private List<Property> rentalProperties;
+        private List<Product> productLists;
 
         //constructor, call on creation
-        public propertyArrayAdapter(Context context, int resource, ArrayList<Property> objects) {
+        public propertyArrayAdapter(Context context, int resource, ArrayList<Product> objects) {
             super(context, resource, objects);
 
             this.context = context;
-            this.rentalProperties = objects;
+            this.productLists = objects;
         }
 
         //called when rendering the list
         public View getView(int position, View convertView, ViewGroup parent) {
 
             //get the property we are displaying
-            Property property = rentalProperties.get(position);
+            Product prd = productLists.get(position);
 
             //get the inflater and inflate the XML layout for each item
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
             //conditionally inflate either standard or special template
             View view;
-            if(property.getFeatured() == true){
-                view = inflater.inflate(R.layout.property_layout_alt, null);
+            if(prd.getFeatured() == true){
+                view = inflater.inflate(R.layout.product_layout_alt, null);
             }else{
-                view = inflater.inflate(R.layout.property_layout, null);
+                view = inflater.inflate(R.layout.product_layout, null);
             }
 
 
@@ -94,19 +101,19 @@ public class ProductList extends AppCompatActivity {
             ImageView image = (ImageView) view.findViewById(R.id.image);
 
             //display trimmed excerpt for description
-            int descriptionLength = property.getDescription().length();
+            int descriptionLength = prd.getDescription().length();
             if(descriptionLength >= 100){
-                String descriptionTrim = property.getDescription().substring(0, 100) + "...";
+                String descriptionTrim = prd.getDescription().substring(0, 100) + "...";
                 description.setText(descriptionTrim);
             }else{
-                description.setText(property.getDescription());
+                description.setText(prd.getDescription());
             }
 
             //set price and rental attributes
-            price.setText("$" + String.valueOf(property.getPrice()));
-            title.setText(String.valueOf(property.getTitle()));
+            price.setText("$" + String.valueOf(prd.getPrice()));
+            title.setText(String.valueOf(prd.getTitle()));
             //get the image associated with this property
-            int imageID = context.getResources().getIdentifier(property.getImage(), "drawable", context.getPackageName());
+            int imageID = context.getResources().getIdentifier(prd.getImage(), "drawable", context.getPackageName());
             image.setImageResource(imageID);
             return view;
         }

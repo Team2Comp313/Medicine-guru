@@ -1,10 +1,16 @@
 package com.example.team2.medicineguru;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,29 +26,39 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import medicineguru.UtilityClasses.LoginSessionManager;
 import medicineguru.databasehandler.FireBaseDatabaseHandler;
 import medicineguru.dto.Dose;
 import medicineguru.dto.Image;
+
 import medicineguru.dto.Medicine;
 import medicineguru.dto.Symptom;
+import android.app.FragmentManager;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-        LoginSessionManager session;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    LoginSessionManager session;
     NavigationView navigationView;
+    PM_Fragement pm_fragment;
+    //Empty_Fragment start_fragment;
+
     Menu nav_Menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         session=new LoginSessionManager(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        insertMedicine();
+        //insertMedicine();
         setSupportActionBar(toolbar);
+
+        //start_fragment = new Empty_Fragment();
+        pm_fragment = new PM_Fragement();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.pm_fragment, pm_fragment).commit();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +78,6 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         hideShowMenuItems();
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -97,16 +112,20 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+       /// Toast.makeText(this, "The Mistbelt Forests", Toast.LENGTH_SHORT).show();
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            pm_fragment = new PM_Fragement();
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.pm_fragment, pm_fragment).commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -118,8 +137,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
-        }
-        else if (id == R.id.logout) {
+        }else if (id == R.id.logout) {
             session.logoutUser();
                     AuthUI.getInstance()
                             .signOut(this)
@@ -130,14 +148,13 @@ public class MainActivity extends AppCompatActivity
                                     finish();
                                 }
                             });
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void insertMedicine(){
         Dose dose=new Dose(250,"mg");
         Image img=new Image("/logo.png");
@@ -150,19 +167,16 @@ public class MainActivity extends AppCompatActivity
         ss.add(s2);
         Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid",23);
         FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
-        List<Medicine> medicines1=db.getMedicines();
-        List<Medicine> medicines=db.getMedicines("symptoms","name","Neck pain");
+        //db.getAllMedicine();
         //db.createMedicine(medicine);
-
     }
+
     private void hideShowMenuItems()
     {
-
         if(session.isLoggedIn()){
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
-        }
-        else {
+        } else {
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
         }

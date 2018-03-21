@@ -5,9 +5,10 @@ package com.example.team2.medicineguru;
  */
 
 //Base class to hold information about our property
-public class Property {
+public class Product {
 
     //property basics
+    private String type;
     private String title;
     private String description;
     private String image;
@@ -15,14 +16,14 @@ public class Property {
     private Boolean featured;
 
     //constructor
-    public Property(
-            String title, String description, Double price, String image, Boolean featured){
+    public Product(String title, String description, Double price, String image, Boolean featured,String type){
 
         this.title = title;
         this.description = description;
         this.price = price;
         this.image = image;
         this.featured = featured;
+        this.type = type;
     }
 
     //getters
@@ -31,4 +32,5 @@ public class Property {
     public Double getPrice() {return price; }
     public String getImage() { return image; }
     public Boolean getFeatured(){return featured; }
+    public String getType(){return type; }
 }

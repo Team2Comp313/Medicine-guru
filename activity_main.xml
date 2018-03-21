@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login"
+    android:orientation="vertical"
+    tools:context="com.example.jaskaran.medicineguru.MainActivity">
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fontFamily="serif"
+        android:gravity="center_vertical"
+        android:text="MEDICINE GURU"
+        android:textAllCaps="true"
+        android:textColor="#FFF03961"
+        android:textSize="45sp"
+        android:textStyle="bold|italic"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.5"
+        android:orientation="vertical"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fontFamily="serif"
+            android:textColor="#FFFF4081"
+            android:gravity="center_vertical"
+            android:text="Log In"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/etUserId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#5B394FDE"
+            android:ems="10"
+            android:hint="User Id"
+            android:inputType="textPersonName"
+            android:text=""
+            android:textColor="@color/colorPrimaryDark" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPersonName"
+            android:text=""
+            android:background="#5B394FDE"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#5B394FDE"
+            android:text="Sign In"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/btnForgotPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background=""
+            android:text="Forgot Password"
+            android:textColor="#FFEE1127"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"></LinearLayout>
+
+
+</LinearLayout>

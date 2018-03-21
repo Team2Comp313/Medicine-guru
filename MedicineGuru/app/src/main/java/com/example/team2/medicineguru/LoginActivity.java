@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     LoginSessionManager session;
     CoordinatorLayout coordinatorLayout;
     private static final int RC_SIGN_IN = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

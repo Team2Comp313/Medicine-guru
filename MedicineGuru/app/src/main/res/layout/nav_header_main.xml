@@ -5,7 +5,7 @@
     android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/side_nav_bar"
     android:gravity="bottom"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,22 +14,32 @@
 
     <ImageView
         android:id="@+id/imageView"
+        android:layout_width="@dimen/nav_body_dimen"
+        android:layout_height="@dimen/nav_body_dimen"
+        android:src="@drawable/nav"
+        android:adjustViewBounds="true"/>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Medicine Guru"
+            android:paddingLeft="@dimen/layout_margin_left"
+            android:paddingBottom="@dimen/layout_margin_bottom"
+            style="@style/AppTheme.navText"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Android Studio"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="android.studio@android.com" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Medication at Doorsteps..."
+            android:paddingLeft="@dimen/layout_margin_left"
+            android:paddingBottom="@dimen/layout_margin_bottom"
+            style="@style/AppTheme.navSubText"/>
+    </LinearLayout>
 
 </LinearLayout>
