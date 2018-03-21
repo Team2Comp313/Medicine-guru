@@ -49,19 +49,30 @@
         android:inputType="number"
         android:hint="@string/medicine_size" />
 
-    <Spinner
-        android:id="@+id/colorSpinner"
+    <EditText
+        android:id="@+id/priceTxt"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:entries="@string/medicine_color" />
+        android:inputType="number"
+        android:hint="@string/medicine_price" />
 
-    <Spinner
-        android:id="@+id/formSpinner"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:entries="@string/medicine_form" />
+        android:layout_weight="1">
+        <Spinner
+            android:id="@+id/colorSpinner"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:entries="@string/medicine_color" />
+
+        <Spinner
+            android:id="@+id/formSpinner"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:entries="@string/medicine_form" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,13 +95,26 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/symptomTxt"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:inputType="textPersonName"
-        android:hint="Symptom" />
+        android:orientation="horizontal">
+
+        <AutoCompleteTextView
+              android:id="@+id/atSymptoms"
+              android:layout_width="200dp"
+              android:layout_height="wrap_content"
+              android:hint="Symptom" />
+
+        <Button
+              android:id="@+id/btnAdd"
+              android:layout_width="100dp"
+              android:layout_height="wrap_content"
+              android:text="ADD"
+              android:onClick="add_symptoms"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -110,13 +134,6 @@
             android:layout_height="wrap_content"
             android:text="@string/choose_medicine_img"
             android:onClick="chooseImage"/>
-
-        <TextView
-            android:id="@+id/etPath"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="Path"
-            android:visibility="invisible" />
 
     </LinearLayout>
 

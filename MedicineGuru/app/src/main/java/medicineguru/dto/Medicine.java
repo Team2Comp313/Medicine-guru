@@ -1,5 +1,7 @@
 package medicineguru.dto;
 
+import android.net.Uri;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.Collection;
@@ -25,9 +27,9 @@ public class Medicine {
     private  String form;
     private long price;
     private boolean requirePrescription;
-    private List<String> imagePath;
+    private List<Uri> imagePath;
 
-    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<String> imagePath) {
+    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<Uri> imagePath) {
         this.medId = medId;
         this.name = name;
         this.title = title;
@@ -43,7 +45,7 @@ public class Medicine {
         this.imagePath = imagePath;
     }
 
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<String> imagePath) {
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<Uri> imagePath) {
         this.name = name;
         this.title = title;
         this.description = description;
@@ -74,7 +76,20 @@ public class Medicine {
         this.price = price;
     }
 
-    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<String> imagePath) {
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, Dose dosage, String form, long price, List<Uri> imagePath) {
+        this.name = name;
+        this.title = title;
+        this.description = description;
+        this.size = size;
+        this.color = color;
+        this.symptoms = symptoms;
+        this.dosage = dosage;
+        this.form = form;
+        this.price = price;
+        this.imagePath = imagePath;
+    }
+
+    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<Uri> imagePath) {
         this.medId = medId;
         this.name = name;
         this.title = title;
@@ -89,7 +104,7 @@ public class Medicine {
         this.imagePath = imagePath;
     }
 
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<String> imagePath) {
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<Uri> imagePath) {
         this.name = name;
         this.title = title;
         this.description = description;
@@ -134,11 +149,11 @@ public class Medicine {
         this.price = price;
     }
 
-    public List<String> getImagePath() {
+    public List<Uri> getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(List<String> imagePath) {
+    public void setImagePath(List<Uri> imagePath) {
         this.imagePath = imagePath;
     }
 
