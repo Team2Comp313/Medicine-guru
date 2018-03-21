@@ -31,7 +31,7 @@ public class InsertMedicine extends AppCompatActivity {
 
     private ImageView medicineImage;
     private TextView etPath;
-    private EditText name, title, description, size, symptom, dose_amount;
+    private EditText name, title, description, size, dose_amount;
     private Spinner colorSpinner, formSpinner, unitSpinner;
 
     private static final int IMG_REQUEST_CODE = 13;
@@ -40,7 +40,7 @@ public class InsertMedicine extends AppCompatActivity {
     Medicine medicine;
 
     final String[] symptoms = {"Cold", "Cough", "Fever", "Anxiety", "Headache", "Drowsiness", "Constipation","High Blood Pressure"
-            ,"Agitation","Nausea","Confusion","Dizziness","Poor Coordination","Slowed Breathing","High Body Temperature","Diarrhea"};
+            ,"Agitation","Nausea","Body Ache","Neck pain","Confusion","Dizziness","Poor Coordination","Slowed Breathing","High Body Temperature","Diarrhea"};
     AutoCompleteTextView atSymp;
     TextView sympTxt;
     String symptomList="";
@@ -56,7 +56,6 @@ public class InsertMedicine extends AppCompatActivity {
         title = findViewById(R.id.titletxt);
         description = findViewById(R.id.descriptionTxt);
         size = findViewById(R.id.sizeTxt);
-        symptom = findViewById(R.id.symptomTxt);
         dose_amount = findViewById(R.id.dosageAmountTxt);
         colorSpinner = findViewById(R.id.colorSpinner);
         formSpinner = findViewById(R.id.formSpinner);
