@@ -9,8 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,12 +18,8 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
-import medicineguru.dto.Dose;
 import medicineguru.dto.Medicine;
-import medicineguru.dto.Symptom;
 
 public class InsertMedicine extends AppCompatActivity {
 
@@ -38,13 +32,6 @@ public class InsertMedicine extends AppCompatActivity {
     private Uri filePath;
     private Bitmap bitmap;
     Medicine medicine;
-
-    final String[] symptoms = {"Cold", "Cough", "Fever", "Anxiety", "Headache", "Drowsiness", "Constipation","High Blood Pressure"
-            ,"Agitation","Nausea","Confusion","Dizziness","Poor Coordination","Slowed Breathing","High Body Temperature","Diarrhea"};
-    AutoCompleteTextView atSymp;
-    TextView sympTxt;
-    String symptomList="";
-    List<Symptom> symptomsOfMedicine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +48,6 @@ public class InsertMedicine extends AppCompatActivity {
         colorSpinner = findViewById(R.id.colorSpinner);
         formSpinner = findViewById(R.id.formSpinner);
         unitSpinner = findViewById(R.id.unitSpinner);
-        atSymp = findViewById(R.id.atSymptoms);
-        atSymp.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, symptoms));
-        atSymp.setThreshold(1);
-    }
-
-    public void add_symptoms(View view)
-    {
-        String symptom = atSymp.getText().toString();
-        atSymp.setText("");
-        symptomList = symptomList+","+symptom;
     }
 
     @Override
@@ -112,38 +89,25 @@ public class InsertMedicine extends AppCompatActivity {
         String nameOfMed;
         String titleOfMed;
         String descriptionOfMed;
+        String symptomAssociated;
         String color;
         String form;
-        Dose dose;
+        String dose;
         String path;
         String sizeMed;
         int sizeOfMed;
-        String doseQuantity;
-        int quantityOfDose;
-        String unit;
         nameOfMed = name.getText().toString();
         titleOfMed = title.getText().toString();
         descriptionOfMed = description.toString();
         sizeMed = size.getText().toString();
         sizeOfMed = Integer.parseInt(sizeMed);
+        symptomAssociated = symptom.getText().toString();
         color = colorSpinner.getSelectedItem().toString();
         form = formSpinner.getSelectedItem().toString();
-        doseQuantity = dose_amount.getText().toString();
-        quantityOfDose = Integer.parseInt(doseQuantity);
-        unit = unitSpinner.getSelectedItem().toString();
-        dose = new Dose(quantityOfDose, unit);
+        dose = dose_amount+unitSpinner.getSelectedItem().toString();
         path = etPath.getText().toString();
 
-        List<String> symps = Arrays.asList(symptomList.split("\\s*,\\s*"));
-
-        for (int i=0; i<symps.size(); i++)
-        {
-            Symptom s = new Symptom(symps.get(i));
-            symptomsOfMedicine.add(s);
-        }
-
-        //List<Image> to be changed to Image.
-         //medicine = new Medicine(nameOfMed,titleOfMed,descriptionOfMed,sizeOfMed,color,symptomsOfMedicine,path, dose, form);
+        // medicine = new Medicine(nameOfMed,titleOfMed,descriptionOfMed,sizeOfMed,color,symptomAssociated,path, dose, form);
 
     }
 }

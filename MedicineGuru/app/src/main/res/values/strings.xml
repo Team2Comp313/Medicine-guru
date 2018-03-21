@@ -19,4 +19,78 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="unknown_error">Unknown error occured</string>
     <string name="portrait_message">This is Portrait mode fragment</string>
+
+    <string name="label_loading">Please Wait…</string>
+    <string name="label_interval">Interval: </string>
+    <string name="label_indicator_size">Indicator size: </string>
+    <string name="label_animate_indicators">Animate indicators: </string>
+    <string name="label_hide_indicators">Hide Indicators</string>
+    <string name="label_loop_slides">Loop slides: </string>
+    <array name="page_indicators">
+        <item>Circle</item>
+        <item>Dash</item>
+        <item>Round Square</item>
+        <item>Square</item>
+        <item>Custom</item>
+    </array>
+
+    <string name="title_activity_insert_medicine">InsertMedicineActivity</string>
+    <string name="insert_medicine_title">Enter Medicine Details</string>
+    <string name="medicine_name">Name</string>
+    <string name="medicine_title">Title</string>
+    <string name="medicine_description">Description</string>
+    <string name="medicine_size">Size</string>
+    <string name="medicine_color">Select Color</string>
+    <string name="medicine_form">Select form</string>
+    <string name="upload_medicine_img">Upload Image</string>
+    <string name="choose_medicine_img">Choose Image</string>
+    <string name="insert_medicine">Insert</string>
+    <string name="medicine_dosage_quantity">Enter Quantity</string>
+
+    <string-array name="medicine_unit">
+        <item>mg</item>
+        <item>mcg</item>
+        <item>gm</item>
+        <item>L</item>
+        <item>mL</item>
+    </string-array>>
+
+    <string-array name="medicine_color">
+        <item>Black</item>
+        <item>Clear</item>
+        <item>Gray</item>
+        <item>Green</item>
+        <item>Gold</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Lavendar</item>
+        <item>Multi-color</item>
+        <item>Off-white</item>
+        <item>Orange</item>
+        <item>Peach</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Red</item>
+        <item>Tan</item>
+        <item>Turquoise</item>
+        <item>White</item>
+        <item>Yellow</item>
+    </string-array>
+
+    <string-array name="medicine_form">
+        <item>Liquid</item>
+        <item>Gel</item>
+        <item>Ointment</item>
+        <item>Powder</item>
+        <item>Capsules</item>
+        <item>Tablets</item>
+        <item>Pills</item>
+        <item>Palets</item>
+        <item>Lozenges and Troches</item>
+        <item>Liniment</item>
+        <item>Inhalants</item>
+        <item>Lotions</item>
+        <item>Paste</item>
+        <item>Sprays</item>
+    </string-array>
 </resources>
