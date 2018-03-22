@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class Image {
 
-    public String path;
+    private String path;
 
     public Image() {
     }

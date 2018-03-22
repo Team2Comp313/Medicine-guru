@@ -1,5 +1,7 @@
 package medicineguru.dto;
 
+import android.net.Uri;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.Collection;
@@ -13,22 +15,20 @@ import java.util.UUID;
  */
 
 public class Medicine {
-    public String medId;
-    public String name;
-    public String title;
-    public String description;
-    public int size;
-    public String color;
-    public List<Symptom> symptoms;
-    public List<Image> images;
-    public  Dose dosage;
-    public  String form;
+    private String medId;
+    private String name;
+    private String title;
+    private String description;
+    private int size;
+    private String color;
+    private List<Symptom> symptoms;
+    private List<String> images;
+    private  Dose dosage;
+    private  String form;
+    private long price;
+    private String requirePrescription;
 
-    public Medicine() {
-    }
-
-    public Medicine(String medId,String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
-       this.medId=medId;
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, long price, String requirePrescription) {
         this.name = name;
         this.title = title;
         this.description = description;
@@ -38,9 +38,12 @@ public class Medicine {
         this.images = images;
         this.dosage = dosage;
         this.form = form;
+        this.price = price;
+        this.requirePrescription = requirePrescription;
     }
 
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form) {
+    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, long price, String requirePrescription) {
+        this.medId = medId;
         this.name = name;
         this.title = title;
         this.description = description;
@@ -50,6 +53,8 @@ public class Medicine {
         this.images = images;
         this.dosage = dosage;
         this.form = form;
+        this.price = price;
+        this.requirePrescription = requirePrescription;
     }
 
     public Map<String, Object> toMap() {
@@ -67,6 +72,24 @@ public class Medicine {
 
         return result;
     }
+    public long getPrice() {
+        return price;
+    }
+
+    public String isRequirePrescription() {
+        return requirePrescription;
+    }
+
+    public void setRequirePrescription(String requirePrescription) {
+        this.requirePrescription = requirePrescription;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
+    }
+
+
+
     public String getMedId() {
         return medId;
     }
@@ -122,11 +145,11 @@ public class Medicine {
         this.symptoms = symptoms;
     }
 
-    public List<Image> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 

@@ -1,6 +1,9 @@
 package com.example.team2.medicineguru;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -93,7 +96,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem itemCart = menu.findItem(R.id.action_cart);
+        LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
+        setBadgeCount(this, icon, "9");
         return true;
     }
 
@@ -105,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_cart) {
             return true;
         }
 
@@ -126,8 +133,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             pm_fragment = new PM_Fragement();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.pm_fragment, pm_fragment).commit();
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.insert_medicine) {
+            startActivity(new Intent(MainActivity.this, InsertMedicine.class));
+            finish();
         } else if (id == R.id.nav_manage) {
 
         }else if (id == R.id.login) {
@@ -155,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void insertMedicine(){
+    /*public void insertMedicine(){
         Dose dose=new Dose(250,"mg");
         Image img=new Image("/logo.png");
         Symptom s1=new Symptom("Neck pain");
@@ -165,20 +173,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         List<Image> ii=new ArrayList<Image>();
         ss.add(s1);
         ss.add(s2);
-        Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid");
+        Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid",23);
         FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
         //db.getAllMedicine();
         //db.createMedicine(medicine);
-    }
+    }*/
 
     private void hideShowMenuItems()
     {
         if(session.isLoggedIn()){
+            if(session.getUserDetails().containsValue("brinderjitsingh30@gmail.com"))
+            {
+                navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(true);
+            }
+            else{
+                navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(false);
+            }
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
         } else {
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
         }
+    }
+    public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
+
+        BadgeDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
+        if (reuse != null && reuse instanceof BadgeDrawable) {
+            badge = (BadgeDrawable) reuse;
+        } else {
+            badge = new BadgeDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_badge, badge);
     }
 }

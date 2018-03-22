@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/activity_main"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.example.team2.medicineguru.Empty_Fragment">
-<android.support.design.widget.AppBarLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    android:layout_height="match_parent"
+    tools:context="com.example.team2.medicineguru.Empty_Fragment">
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="?actionBarSize">
-
-        <ImageView
-            android:id="@+id/image_github"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_gravity="right"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/ic_github_circle_black_48dp" />
-
-        <TextView
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif-bold"
-            android:gravity="center_vertical|left"
-            android:text="Banner Slider"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-    </android.support.v7.widget.Toolbar>
-</android.support.design.widget.AppBarLayout>
+            android:visibility="gone"
+            android:layout_height="?actionBarSize">
+
+            <ImageView
+                android:id="@+id/image_github"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_github_circle_black_48dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-bold"
+                android:gravity="center_vertical|left"
+                android:text="Banner Slider"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="232dp"

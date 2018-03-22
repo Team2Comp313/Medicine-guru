@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public class Dose {
 
-    public int quantity;
-    public String unit;
+    private int quantity;
+    private String unit;
 
     public Dose() {
     }
