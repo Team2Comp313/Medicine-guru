@@ -100,7 +100,7 @@ public class InsertMedicine extends AppCompatActivity {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
                 medicineImage.setImageBitmap(bitmap);
                 String path = filePath.getPath();
-              //  etPath.setText(path);
+                //  etPath.setText(path);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
