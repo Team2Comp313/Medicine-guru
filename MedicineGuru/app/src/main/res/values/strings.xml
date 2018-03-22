@@ -36,10 +36,12 @@
 
     <string name="title_activity_insert_medicine">InsertMedicineActivity</string>
     <string name="insert_medicine_title">Enter Medicine Details</string>
+    <string name="medicine_price">Price</string>
     <string name="medicine_name">Name</string>
     <string name="medicine_title">Title</string>
     <string name="medicine_description">Description</string>
     <string name="medicine_size">Size</string>
+    <string name="action_cart">Size</string>
     <string name="medicine_color">Select Color</string>
     <string name="medicine_form">Select form</string>
     <string name="upload_medicine_img">Upload Image</string>
@@ -48,6 +50,7 @@
     <string name="medicine_dosage_quantity">Enter Quantity</string>
 
     <string-array name="medicine_unit">
+        <item>Select unit</item>
         <item>mg</item>
         <item>mcg</item>
         <item>gm</item>
@@ -56,6 +59,7 @@
     </string-array>>
 
     <string-array name="medicine_color">
+        <item>Select Color</item>
         <item>Black</item>
         <item>Clear</item>
         <item>Gray</item>
@@ -76,8 +80,14 @@
         <item>White</item>
         <item>Yellow</item>
     </string-array>
+    <string-array name="require_prescription">
+        <item>Require Prescription</item>
+        <item>Yes</item>
+        <item>No</item>
 
+    </string-array>
     <string-array name="medicine_form">
+        <item>Select form</item>
         <item>Liquid</item>
         <item>Gel</item>
         <item>Ointment</item>

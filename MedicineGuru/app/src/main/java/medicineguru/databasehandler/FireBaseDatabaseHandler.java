@@ -50,6 +50,11 @@ public class FireBaseDatabaseHandler {
         medicine.setMedId(medicineId);
         mDatabase.child(medicineId).setValue(medicine);
     }
+
+    public FirebaseDatabase getmFirebaseInstance() {
+        return mFirebaseInstance;
+    }
+
     public void createNewOrder(Order order)
     {
         getNodeReference("Orders");
@@ -113,6 +118,7 @@ public class FireBaseDatabaseHandler {
             }
         });
     }
+
     public void initializeMedicineListener()
     {
         mDatabase = mFirebaseInstance.getReference("Medicine");

@@ -1,5 +1,7 @@
 package medicineguru.dto;
 
+import android.net.Uri;
+
 import com.google.firebase.database.Exclude;
 
 import java.util.Collection;
@@ -20,14 +22,27 @@ public class Medicine {
     private int size;
     private String color;
     private List<Symptom> symptoms;
-    private List<Image> images;
+    private List<String> images;
     private  Dose dosage;
     private  String form;
     private long price;
-    private boolean requirePrescription;
-    private List<String> imagePath;
+    private String requirePrescription;
 
-    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<String> imagePath) {
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, long price, String requirePrescription) {
+        this.name = name;
+        this.title = title;
+        this.description = description;
+        this.size = size;
+        this.color = color;
+        this.symptoms = symptoms;
+        this.images = images;
+        this.dosage = dosage;
+        this.form = form;
+        this.price = price;
+        this.requirePrescription = requirePrescription;
+    }
+
+    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, long price, String requirePrescription) {
         this.medId = medId;
         this.name = name;
         this.title = title;
@@ -40,67 +55,6 @@ public class Medicine {
         this.form = form;
         this.price = price;
         this.requirePrescription = requirePrescription;
-        this.imagePath = imagePath;
-    }
-
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, boolean requirePrescription, List<String> imagePath) {
-        this.name = name;
-        this.title = title;
-        this.description = description;
-        this.size = size;
-        this.color = color;
-        this.symptoms = symptoms;
-        this.images = images;
-        this.dosage = dosage;
-        this.form = form;
-        this.price = price;
-        this.requirePrescription = requirePrescription;
-        this.imagePath = imagePath;
-    }
-
-    public Medicine() {
-    }
-
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price) {
-        this.name = name;
-        this.title = title;
-        this.description = description;
-        this.size = size;
-        this.color = color;
-        this.symptoms = symptoms;
-        this.images = images;
-        this.dosage = dosage;
-        this.form = form;
-        this.price = price;
-    }
-
-    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<String> imagePath) {
-        this.medId = medId;
-        this.name = name;
-        this.title = title;
-        this.description = description;
-        this.size = size;
-        this.color = color;
-        this.symptoms = symptoms;
-        this.images = images;
-        this.dosage = dosage;
-        this.form = form;
-        this.price = price;
-        this.imagePath = imagePath;
-    }
-
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<Image> images, Dose dosage, String form, long price, List<String> imagePath) {
-        this.name = name;
-        this.title = title;
-        this.description = description;
-        this.size = size;
-        this.color = color;
-        this.symptoms = symptoms;
-        this.images = images;
-        this.dosage = dosage;
-        this.form = form;
-        this.price = price;
-        this.imagePath = imagePath;
     }
 
     public Map<String, Object> toMap() {
@@ -122,11 +76,11 @@ public class Medicine {
         return price;
     }
 
-    public boolean isRequirePrescription() {
+    public String isRequirePrescription() {
         return requirePrescription;
     }
 
-    public void setRequirePrescription(boolean requirePrescription) {
+    public void setRequirePrescription(String requirePrescription) {
         this.requirePrescription = requirePrescription;
     }
 
@@ -134,13 +88,7 @@ public class Medicine {
         this.price = price;
     }
 
-    public List<String> getImagePath() {
-        return imagePath;
-    }
 
-    public void setImagePath(List<String> imagePath) {
-        this.imagePath = imagePath;
-    }
 
     public String getMedId() {
         return medId;
@@ -197,11 +145,11 @@ public class Medicine {
         this.symptoms = symptoms;
     }
 
-    public List<Image> getImages() {
+    public List<String> getImages() {
         return images;
     }
 
-    public void setImages(List<Image> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 
