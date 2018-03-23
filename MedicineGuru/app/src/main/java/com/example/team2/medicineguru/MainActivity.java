@@ -39,6 +39,10 @@ import medicineguru.dto.Image;
 import medicineguru.dto.Medicine;
 import medicineguru.dto.Symptom;
 import android.app.FragmentManager;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import static com.example.team2.medicineguru.LoginActivity.message;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -46,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     PM_Fragement pm_fragment;
     //Empty_Fragment start_fragment;
+    TextView navText;
+
 
     Menu nav_Menu;
     @Override
@@ -79,8 +85,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View navHeaderView = navigationView.getHeaderView(0);
+        navText = navHeaderView.findViewById(R.id.nav_header_text);
         hideShowMenuItems();
+        setUserNameInNavBar();
         navigationView.setNavigationItemSelectedListener(this);
+
+
+    }
+
+    public void setUserNameInNavBar()
+    {
+        if(session.isLoggedIn())
+        {
+            String msg = getIntent().getExtras().getString(message);
+            Toast.makeText(this,"Welcome "+msg,Toast.LENGTH_SHORT).show();
+            navText.setText(msg);
+        }
     }
 
     @Override
@@ -191,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
+
         } else {
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);

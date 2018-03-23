@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="@dimen/layout_margin_left"
+    android:paddingRight="@dimen/layout_margin_right"
+    android:paddingTop="@dimen/layout_margin_top"
+    android:background="@drawable/bkg"
     tools:context="com.example.team2.medicineguru.InsertMedicine">
 
     <ScrollView
@@ -19,9 +23,9 @@
 
             <TextView
                 android:id="@+id/textView"
-                style="@style/AppTheme.navText"
+                style="@style/AppTheme.textStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="52dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/insert_medicine_title"
@@ -66,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/medicine_price"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <Spinner
                 android:id="@+id/prescriptionSpinner"
@@ -124,17 +128,20 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/atSymptoms"
-                    android:layout_width="200dp"
+                    android:layout_width="213dp"
                     android:layout_height="wrap_content"
                     android:hint="Symptom" />
 
                 <Button
                     android:id="@+id/btnAdd"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:onClick="add_symptoms"
-                    android:text="ADD" />
-
+                    android:text="ADD"
+                    android:textColor="@color/btn_color_orange"
+                    android:background="@color/black_transparent"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
@@ -144,12 +151,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:weightSum="1">
+
+                <Button
+                    android:id="@+id/btnChooseImg"
+                    android:layout_width="143dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="chooseImage"
+                    android:text="@string/choose_medicine_img"
+                    android:textColor="@color/btn_color_orange"
+                    android:background="@color/black_transparent"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/med_img"
@@ -158,22 +177,7 @@
                     android:layout_weight="0.29"
                     app:srcCompat="@drawable/com_facebook_tooltip_blue_xout" />
 
-                <Button
-                    android:id="@+id/btnChooseImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="chooseImage"
-                    android:text="@string/choose_medicine_img" />
-
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btnInsertMedicine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="insertMedicineInDatabase"
-                android:text="@string/insert_medicine" />
         </LinearLayout>
     </ScrollView>
 

@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/bkg</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
@@ -22,8 +23,16 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.navText" parent="@android:style/TextAppearance" >
-        <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#F44336</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:shadowColor">#E57373</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:typeface">sans</item>
+    </style>
+
+    <style name="AppTheme.textStyle" parent="@android:style/TextAppearance" >
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#00BCD4</item>
         <item name="android:shadowColor">#E57373</item>
         <item name="android:textStyle">bold</item>
         <item name="android:typeface">sans</item>

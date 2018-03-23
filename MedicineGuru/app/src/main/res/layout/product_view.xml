@@ -70,7 +70,7 @@
             android:layout_alignBottom="@+id/price"
             android:layout_marginStart="27dp"
             android:layout_toEndOf="@+id/price"
-            android:background="#f4a137"
+            android:background="@color/btn_color_orange"
             android:padding="2dp"
             android:text="Add to cart"
             android:textColor="#ffffff"

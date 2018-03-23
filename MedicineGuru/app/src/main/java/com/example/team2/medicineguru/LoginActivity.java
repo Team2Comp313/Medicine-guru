@@ -1,10 +1,13 @@
 package com.example.team2.medicineguru;
 
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.widget.TextView;
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -23,11 +26,13 @@ public class LoginActivity extends AppCompatActivity {
     LoginSessionManager session;
     CoordinatorLayout coordinatorLayout;
     private static final int RC_SIGN_IN = 123;
+    public static final String message = "com.example.team2.medicineguru.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
@@ -58,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
                 showSnackBar("Login successfull");
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 session.createLoginSession(user.getDisplayName(), user.getEmail(),user.getUid());
-                Intent i = new Intent(getApplicationContext(), MainActivity.class).putExtra("authToken", response.getIdpToken());
+                Intent i = new Intent(getApplicationContext(), MainActivity.class).putExtra("authToken", response.getIdpToken()).putExtra(message,user.getDisplayName());
                 startActivity(i);
                 finish();
             } else {
