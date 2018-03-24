@@ -38,12 +38,12 @@ public class InsertMedicine extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_medicine);
         medicineImage = findViewById(R.id.med_img);
-        etPath = findViewById(R.id.etPath);
+       // etPath = findViewById(R.id.etPath);
         name = findViewById(R.id.nameTxt);
         title = findViewById(R.id.titletxt);
         description = findViewById(R.id.descriptionTxt);
         size = findViewById(R.id.sizeTxt);
-        symptom = findViewById(R.id.symptomTxt);
+       // symptom = findViewById(R.id.symptomTxt);
         dose_amount = findViewById(R.id.dosageAmountTxt);
         colorSpinner = findViewById(R.id.colorSpinner);
         formSpinner = findViewById(R.id.formSpinner);

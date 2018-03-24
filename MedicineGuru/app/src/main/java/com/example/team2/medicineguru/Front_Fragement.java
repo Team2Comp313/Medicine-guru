@@ -15,7 +15,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +58,7 @@ public class Front_Fragement extends Fragment {
     ListView productListView;
     private Context context;
     private String[] banners = {"","","sale_banner1","","sale_banner2","","sale_banner3"};
-   // private int bnrPos=0;
+    private int bnrPos=0;
     //custom ArrayAdapater
     class ProductsAdapter extends ArrayAdapter<Medicine>{
         private Context context;
@@ -151,7 +150,7 @@ public class Front_Fragement extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /**
          * Inflate the layout for this fragment         */
-        final View view = inflater.inflate(R.layout.home_fragment, container, false);
+        final View view = inflater.inflate(R.layout.front_fragment, container, false);
         //Find list view and bind it with the custom adapter
         productListView = view.findViewById(R.id.customListView);
 

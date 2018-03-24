@@ -1,19 +1,10 @@
 package com.example.team2.medicineguru;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,26 +23,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import medicineguru.UtilityClasses.LoginSessionManager;
-import medicineguru.databasehandler.FireBaseDatabaseHandler;
 import medicineguru.dto.Dose;
 import medicineguru.dto.Image;
 
-import medicineguru.dto.Medicine;
 import medicineguru.dto.Symptom;
 import android.app.FragmentManager;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import static com.example.team2.medicineguru.LoginActivity.message;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     LoginSessionManager session;
     NavigationView navigationView;
-    PM_Fragement pm_fragment;
+    Front_Fragement pm_fragment;
     //Empty_Fragment start_fragment;
-    TextView navText;
-
 
     Menu nav_Menu;
     @Override
@@ -65,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         //start_fragment = new Empty_Fragment();
-        pm_fragment = new PM_Fragement();
+        pm_fragment = new Front_Fragement();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.pm_fragment, pm_fragment).commit();
 
@@ -85,23 +68,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View navHeaderView = navigationView.getHeaderView(0);
-        navText = navHeaderView.findViewById(R.id.nav_header_text);
         hideShowMenuItems();
-        setUserNameInNavBar();
         navigationView.setNavigationItemSelectedListener(this);
-
-
-    }
-
-    public void setUserNameInNavBar()
-    {
-        if(session.isLoggedIn())
-        {
-            String msg = getIntent().getExtras().getString(message);
-            Toast.makeText(this,"Welcome "+msg,Toast.LENGTH_SHORT).show();
-            navText.setText(msg);
-        }
     }
 
     @Override
@@ -117,11 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem itemCart = menu.findItem(R.id.action_cart);
-        LayerDrawable icon = (LayerDrawable) itemCart.getIcon();
-        setBadgeCount(this, icon, "9");
         return true;
     }
 
@@ -133,9 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_cart) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -145,18 +107,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-       /// Toast.makeText(this, "The Mistbelt Forests", Toast.LENGTH_SHORT).show();
+        /// Toast.makeText(this, "The Mistbelt Forests", Toast.LENGTH_SHORT).show();
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-            pm_fragment = new PM_Fragement();
+            pm_fragment = new Front_Fragement();
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.pm_fragment, pm_fragment).commit();
-        } else if (id == R.id.insert_medicine) {
-            startActivity(new Intent(MainActivity.this, InsertMedicine.class));
-            finish();
         } else if (id == R.id.nav_manage) {
 
         }else if (id == R.id.login) {
@@ -168,15 +127,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if (id == R.id.logout) {
             session.logoutUser();
-                    AuthUI.getInstance()
-                            .signOut(this)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    // user is now signed out
-                                    startActivity(new Intent(MainActivity.this, MainActivity.class));
-                                    finish();
-                                }
-                            });
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(MainActivity.this, MainActivity.class));
+                            finish();
+                        }
+                    });
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -184,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    /*public void insertMedicine(){
+    public void insertMedicine(){
         Dose dose=new Dose(250,"mg");
         Image img=new Image("/logo.png");
         Symptom s1=new Symptom("Neck pain");
@@ -194,44 +153,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         List<Image> ii=new ArrayList<Image>();
         ss.add(s1);
         ss.add(s2);
-        Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid",23);
-        FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
+        // Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid",23);
+        //FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
         //db.getAllMedicine();
         //db.createMedicine(medicine);
-    }*/
+    }
 
     private void hideShowMenuItems()
     {
         if(session.isLoggedIn()){
-            if(session.getUserDetails().containsValue("brinderjitsingh30@gmail.com"))
-            {
-                navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(true);
-            }
-            else{
-                navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(false);
-            }
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
-
         } else {
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
         }
-    }
-    public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
-
-        BadgeDrawable badge;
-
-        // Reuse drawable if possible
-        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
-        if (reuse != null && reuse instanceof BadgeDrawable) {
-            badge = (BadgeDrawable) reuse;
-        } else {
-            badge = new BadgeDrawable(context);
-        }
-
-        badge.setCount(count);
-        icon.mutate();
-        icon.setDrawableByLayerId(R.id.ic_badge, badge);
     }
 }

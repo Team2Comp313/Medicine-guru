@@ -42,9 +42,6 @@ public class FireBaseDatabaseHandler {
         return mDatabase;
     }
 
-    public FirebaseDatabase getmFirebaseInstance() {
-        return mFirebaseInstance;
-    }
 
     public void createMedicine(Medicine medicine)
     {

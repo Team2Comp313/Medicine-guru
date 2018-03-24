@@ -24,7 +24,7 @@ public class ProductView extends Fragment {
         /**
          * Inflate the layout for this fragment
          */
-        View view = inflater.inflate(R.layout.home_fragment, container, false);
+        View view = inflater.inflate(R.layout.front_fragment, container, false);
         view = inflater.inflate(R.layout.product_view, null);
 
         TextView description = (TextView) view.findViewById(R.id.description);
