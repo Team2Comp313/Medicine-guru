@@ -1,6 +1,5 @@
 package com.example.team2.medicineguru;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -34,7 +33,7 @@ import bannerslider.views.indicators.IndicatorShape;
 
 
 public class Empty_Fragment extends Fragment {
-    PM_Fragement pm_fragment;
+    Front_Fragement pm_fragment;
     private BannerSlider bannerSlider;
     private Context context;
     View rootView;
@@ -43,11 +42,11 @@ public class Empty_Fragment extends Fragment {
         /**
          * Inflate the layout for this fragment
          */
-       rootView = LayoutInflater.from(getActivity()).inflate(R.layout.lm_fragement, container, false);
+       rootView = LayoutInflater.from(getActivity()).inflate(R.layout.frontbanner_fragement, container, false);
         setupViews();
-       // pm_fragment = new PM_Fragement();
+       // home_fragment = new Front_Fragement();
         //FragmentManager fragmentManager = getFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.pm_fragmentchild, pm_fragment).commit();
+        //fragmentManager.beginTransaction().replace(R.id.pm_fragmentchild, home_fragment).commit();
         return rootView;
     }
 

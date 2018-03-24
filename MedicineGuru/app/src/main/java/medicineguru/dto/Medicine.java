@@ -28,6 +28,9 @@ public class Medicine {
     private long price;
     private String requirePrescription;
 
+
+    public Medicine() {  }
+
     public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, long price, String requirePrescription) {
         this.name = name;
         this.title = title;
@@ -56,6 +59,7 @@ public class Medicine {
         this.price = price;
         this.requirePrescription = requirePrescription;
     }
+
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
