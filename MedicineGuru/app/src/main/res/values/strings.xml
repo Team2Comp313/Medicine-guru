@@ -9,7 +9,7 @@
     <string name="facebook_application_id" translatable="false">226143411262381</string>
     <string name="facebook_app_id">226143411262381</string>
     <string name="fb_login_protocol_scheme">fb226143411262381</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Medicine Guru</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -56,7 +56,8 @@
         <item>gm</item>
         <item>L</item>
         <item>mL</item>
-    </string-array>>
+    </string-array>
+    >
 
     <string-array name="medicine_color">
         <item>Select Color</item>
@@ -103,4 +104,7 @@
         <item>Paste</item>
         <item>Sprays</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
