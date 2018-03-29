@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -57,12 +59,14 @@ public class InsertMedicine extends AppCompatActivity {
     Medicine medicine;
 
     FireBaseDatabaseHandler db;
-    final String[] symptoms = {"Cold", "Cough", "Fever", "Anxiety", "Headache", "Drowsiness", "Constipation","High Blood Pressure"
+    final String[] symptoms = {"Cold", "Cough", "Fever", "Anxiety", "Headache", "Drowsiness","Congestion","Body-ache", "Constipation","High Blood Pressure"
             ,"Agitation","Nausea","Confusion","Dizziness","Poor Coordination","Slowed Breathing","High Body Temperature","Diarrhea"};
     AutoCompleteTextView atSymp;
     TextView sympTxt;
     String symptomList="";
     List<Symptom> symptomsOfMedicine;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +156,7 @@ public class InsertMedicine extends AppCompatActivity {
 
                         //List<Image> to be changed to Image.
 
-                        medicine = new Medicine(name.getText().toString(),title.getText().toString(), description.getText().toString(),Integer.parseInt(size.getText().toString()),colorSpinner.getSelectedItem().toString(),symptomsOfMedicine,imageList,dose1,formSpinner.getSelectedItem().toString(),Long.parseLong(price.getText().toString()),requirePrescriptionSpinner.getSelectedItem().toString());
+                        medicine = new Medicine(name.getText().toString(),title.getText().toString(), description.getText().toString(),Integer.parseInt(size.getText().toString()),colorSpinner.getSelectedItem().toString(),symptomsOfMedicine,imageList,dose1,formSpinner.getSelectedItem().toString(),Double.parseDouble(price.getText().toString()),requirePrescriptionSpinner.getSelectedItem().toString());
                         db.createMedicine(medicine);
 
                         uploaded=true;
@@ -181,7 +185,7 @@ public class InsertMedicine extends AppCompatActivity {
 
     }
 
-    public void insertMedicineInDatabase(View view)
+    public void insertMedicineInDatabase()
     {
         uploadMedicineImage();
         // medicine = new Medicine(nameOfMed,titleOfMed,descriptionOfMed,sizeOfMed,color,symptomAssociated,path, dose, form);

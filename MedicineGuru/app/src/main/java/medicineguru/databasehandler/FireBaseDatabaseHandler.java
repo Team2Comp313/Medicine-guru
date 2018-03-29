@@ -29,7 +29,7 @@ public class FireBaseDatabaseHandler {
     FirebaseStorage storage;
     public FireBaseDatabaseHandler()
     {
-        storage=FirebaseStorage.getInstance();
+       // storage=FirebaseStorage.getInstance();
         mFirebaseInstance = FirebaseDatabase.getInstance();
     }
     public StorageReference getStorageRefernce(){
@@ -41,6 +41,8 @@ public class FireBaseDatabaseHandler {
 
         return mDatabase;
     }
+
+
     public void createMedicine(Medicine medicine)
     {
         getNodeReference("Medicine");
@@ -64,6 +66,7 @@ public class FireBaseDatabaseHandler {
         order.setOrderId(orderId);
         mDatabase.child(orderId).setValue(order);
     }
+
     public List<Medicine> getMedicines(){
         initializeMedicineListener();
         return medicineList;
@@ -72,7 +75,9 @@ public class FireBaseDatabaseHandler {
         initializeMedicineListener(type,value);
         return medicineList;
     }
+
     public List<Medicine> getMedicines(String node,String type,String value){
+
         initializeMedicineListener(node,type,value);
         return medicineList;
     }
@@ -123,18 +128,14 @@ public class FireBaseDatabaseHandler {
     {
         mDatabase = mFirebaseInstance.getReference("Medicine");
         mDatabase.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 medicineList=new ArrayList<Medicine>();
                 for (DataSnapshot medicine: dataSnapshot.getChildren()){
                     Medicine data = medicine.getValue(Medicine.class);
-                    medicineList .add(data);
+                    medicineList.add(data);
                 }
-
-
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

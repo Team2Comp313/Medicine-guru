@@ -25,10 +25,12 @@ public class Medicine {
     private List<String> images;
     private  Dose dosage;
     private  String form;
-    private long price;
+    private double price;
     private String requirePrescription;
 
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, long price, String requirePrescription) {
+
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, Double price, String requirePrescription) {
+
         this.name = name;
         this.title = title;
         this.description = description;
@@ -42,7 +44,12 @@ public class Medicine {
         this.requirePrescription = requirePrescription;
     }
 
-    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, long price, String requirePrescription) {
+
+
+    public Medicine() {
+    }
+
+    public Medicine(String medId, String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, Double price, String requirePrescription) {
         this.medId = medId;
         this.name = name;
         this.title = title;
@@ -56,6 +63,7 @@ public class Medicine {
         this.price = price;
         this.requirePrescription = requirePrescription;
     }
+
 
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -72,7 +80,7 @@ public class Medicine {
 
         return result;
     }
-    public long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -84,7 +92,7 @@ public class Medicine {
         this.requirePrescription = requirePrescription;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

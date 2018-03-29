@@ -1,20 +1,26 @@
 package com.example.team2.medicineguru;
 
 /**
- * Created by ASPIRE on 09-03-2018.
+ * Created by Piyush Sharma on 09-03-2018.
  */
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
+import android.transition.TransitionInflater;
+import android.transition.TransitionSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +36,15 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import bannerslider.banners.Banner;
 import bannerslider.banners.RemoteBanner;
@@ -41,51 +52,67 @@ import bannerslider.events.OnBannerClickListener;
 import bannerslider.views.BannerSlider;
 import bannerslider.views.indicators.IndicatorShape;
 
-public class PM_Fragement extends Fragment {
+import medicineguru.UtilityClasses.LoginSessionManager;
+import medicineguru.databasehandler.FireBaseDatabaseHandler;
+import medicineguru.databasehandler.ShoppingCartManager;
+import medicineguru.dto.Medicine;
+import medicineguru.dto.ShoppingCartItem;
 
+public class ProductListFragment extends Fragment {
+    LoginSessionManager loginInfo;
     // Definig Array List - Object Type
-    private ArrayList<Product> comp313_products = new ArrayList<>();
+    private ArrayList<Medicine> comp313_products = new ArrayList<>();
     private BannerSlider bannerSlider;
     View rootView;
+    private static final long MOVE_DEFAULT_TIME = 150;
+    private static final long FADE_DEFAULT_TIME = 50;
+    ShoppingCartManager cartManager;
+    FireBaseDatabaseHandler FireDb;
+    ListView productListView;
     private Context context;
+    private String[] banners = {"","","sale_banner1","","sale_banner2","","sale_banner3"};
+    private int bnrPos=0;
     //custom ArrayAdapater
-    class propertyArrayAdapter extends ArrayAdapter<Product>{
-
+    class ProductsAdapter extends ArrayAdapter<Medicine>{
         private Context context;
-        private List<Product> productLists;
+        private List<Medicine> MedicineLists;
         private String desc;
-        Product prd;
+        Medicine prd;
+        //private String bannerRow;
         //constructor, call on creation
-        public propertyArrayAdapter(Context context, int resource, ArrayList<Product> objects) {
+        public ProductsAdapter(Context context, int resource, List<Medicine> objects) {
             super(context, resource, objects);
             this.context = context;
-            this.productLists = objects;
+            this.MedicineLists = objects;
+            //this.bannerRow = "false";
         }
 
-        //called when rendering the list
+        //called when rendering the list & customising the list
         public View getView(int position, View convertView, ViewGroup parent) {
-
             //get the property we are displaying
-            prd = productLists.get(position);
-
+            prd = MedicineLists.get(position);
             //get the inflater and inflate the XML layout for each item
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
             //conditionally inflate either standard or special template
             View view;
-            if((prd.getType()).equals("slider")){
-                Empty_Fragment start_fragment;
-               // start_fragment = new Empty_Fragment();
-                rootView = LayoutInflater.from(getActivity()).inflate(R.layout.lm_fragement, parent, false);
+            //Log.w("myApp", bannerRow);
+            //Log.w("myApp", Integer.toString(position));
+            if(position==0){
+                rootView = LayoutInflater.from(getActivity()).inflate(R.layout.productt_list_layout, parent, false);
+                // this.bannerRow = "true";
                 setupViews();
                 view = rootView;
-            }else if((prd.getType()).equals("banner")){
-                view = inflater.inflate(R.layout.small_banner, null);
-                ImageView image = (ImageView) view.findViewById(R.id.imageView2);
-                int imageID = context.getResources().getIdentifier(prd.getImage(), "drawable", context.getPackageName());
-                image.setImageResource(imageID);
-            }else{
-                view = inflater.inflate(R.layout.product_layout, null);
+                //getView(0,convertView,parent);
+            }else {
+                if (position == 2 || position == 4 || position == 6){
+                    view = inflater.inflate(R.layout.small_banner, null);
+                    ImageView image = (ImageView) view.findViewById(R.id.imageView2);
+                    int imageID = context.getResources().getIdentifier(banners[position], "drawable", context.getPackageName());
+                    image.setImageResource(imageID);
+                } else {
+                    view = inflater.inflate(R.layout.product_layout, null);
+                }
+                Button addToCartBtn= (Button) view.findViewById(R.id.cart);
                 TextView description = (TextView) view.findViewById(R.id.description);
                 TextView title = (TextView) view.findViewById(R.id.title);
                 TextView price = (TextView) view.findViewById(R.id.price);
@@ -93,70 +120,131 @@ public class PM_Fragement extends Fragment {
 
                 //display trimmed excerpt for description
                 int descriptionLength = prd.getDescription().length();
-                if(descriptionLength >= 100){
+                if (descriptionLength >= 100) {
                     desc = prd.getDescription().substring(0, 100) + "...";
                     description.setText(desc);
-                }else{
+                } else {
                     description.setText(prd.getDescription());
                 }
                 title.setText(String.valueOf(prd.getTitle()));
-                price.setText(String.valueOf(prd.getPrice()));
+                price.setText(String.valueOf("$"+prd.getPrice()));
 
                 //get the image associated with this property
-                final int imageID = context.getResources().getIdentifier(prd.getImage(), "drawable", context.getPackageName());
+                final int imageID = context.getResources().getIdentifier("medicine_comp313_3", "drawable", context.getPackageName());
                 image.setImageResource(imageID);
 
+                Button button1 = (Button) view.findViewById(R.id.view);
+                addToCartBtn.setTag(position);
+                addToCartBtn.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        int pos = Integer.parseInt(String.valueOf(v.getTag()));
+                        prd = MedicineLists.get(pos);
+                        ShoppingCartItem item=new ShoppingCartItem(prd.getTitle(),prd.getTitle(),prd.getPrice().toString(),"1");
+                        item.setImagepath(prd.getImages().get(0));
+                        item.setCarttemId(UUID.randomUUID().toString());
+                        //args.putString("featured", String.valueOf(comp313_products.get(position).getFeatured()));
+                        if(loginInfo.isLoggedIn())
+                        {
+                            cartManager.addCartItem(item,loginInfo.getUserDetails().get("userId"));
+                            Snackbar.make(v, "Added to cart sucessfully", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                        else {
+                            Snackbar.make(v, "Please login to add medicine to cart", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
+                        }
+                        // FragmentManager fragmentManager = getFragmentManager();
+                        //  fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.pm_fragment,pv).commit();
 
-                Button button1= (Button) view.findViewById(R.id.view);
+                    }
+                });
+                // Passing the position variable on button click
                 button1.setTag(position);
                 button1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int pos = Integer.parseInt(String.valueOf(v.getTag()));
-                        prd = productLists.get(pos);
+                        prd = MedicineLists.get(pos);
                         Bundle args = new Bundle();
-                        args.putString("title",prd.getTitle());
-                        args.putString("desc",prd.getDescription());
-                        args.putString("price",String.valueOf(prd.getPrice()));
-                        args.putString("image",prd.getImage());
+                        args.putString("title", prd.getTitle());
+                        args.putString("desc", prd.getDescription());
+                        args.putString("price", String.valueOf(prd.getPrice()));
+                        args.putString("image", "medicine_comp313_3");
                         //args.putString("featured", String.valueOf(comp313_products.get(position).getFeatured()));
                         ProductView pv = new ProductView();
                         pv.setArguments(args);
+                        performTransition(pv);
                         FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.pm_fragment,pv).commit();
+                        fragmentManager.beginTransaction().replace(R.id.pm_fragment, pv).commit();
                     }
                 });
             }
             return view;
         }
     }
+    private void performTransition(Fragment m)
+    {
+
+        FragmentManager mFragmentManager=getFragmentManager();
+        Fragment previousFragment = mFragmentManager.findFragmentById(R.id.pm_fragment);
+        Fragment nextFragment = m;
+
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+        // 1. Exit for Previous Fragment
+        Fade exitFade = new Fade();
+        exitFade.setDuration(FADE_DEFAULT_TIME);
+        previousFragment.setExitTransition(exitFade);
+
+        // 2. Shared Elements Transition
+        TransitionSet enterTransitionSet = new TransitionSet();
+        enterTransitionSet.addTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+        enterTransitionSet.setDuration(MOVE_DEFAULT_TIME);
+        enterTransitionSet.setStartDelay(FADE_DEFAULT_TIME);
+        nextFragment.setSharedElementEnterTransition(enterTransitionSet);
+
+        // 3. Enter Transition for New Fragment
+        Fade enterFade = new Fade();
+        enterFade.setStartDelay(MOVE_DEFAULT_TIME + FADE_DEFAULT_TIME);
+        enterFade.setDuration(FADE_DEFAULT_TIME);
+        nextFragment.setEnterTransition(enterFade);
+        fragmentTransaction.replace(R.id.pm_fragment, nextFragment);
+        fragmentTransaction.addToBackStack(null).commitAllowingStateLoss();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         /**
          * Inflate the layout for this fragment         */
-        final View view = inflater.inflate(R.layout.pm_fragment, container, false);
+        final View view = inflater.inflate(R.layout.product_list_fragment, container, false);
 
         //Find list view and bind it with the custom adapter
-        ListView listView = view.findViewById(R.id.customListView);
+        productListView = view.findViewById(R.id.customListView);
+        loginInfo=new LoginSessionManager(getContext());
+        cartManager=new ShoppingCartManager(loginInfo.getUserDetails().get("userId"));
         //create our property elements
+        FireDb = new FireBaseDatabaseHandler();
+        Query query = FireDb.getmFirebaseInstance().getReference().child("Medicine");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Medicine> medicineList=new ArrayList<Medicine>();
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot medicine : dataSnapshot.getChildren()) {
+                        Medicine data = medicine.getValue(Medicine.class);
+                        medicineList.add(data);
+                    }
+                    setProductsAdapter(medicineList);
+                }
+            }
 
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"slider"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 450.00, "medicine_comp313_1",false,"product"));
-        comp313_products.add(new Product("","", 000.00, "sale_banner1", false,"banner"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", 320.00, "medicine_comp313_2",false,"product"));
-        comp313_products.add(new Product("","", 000.00, "sale_banner2", false,"banner"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_4" ,false,"product"));
-        comp313_products.add(new Product("","", 000.00, "sale_banner3", false,"banner"));
-        comp313_products.add(new Product("Lorem Ipsum", "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_5" , false,"product"));
-        comp313_products.add(new Product("Lorem Ipsum","Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 360.00, "medicine_comp313_3", false,"product"));
+            @Override
+            public void onCancelled(DatabaseError databaseError) {     }
+        });
+
 
         //create our new array adapter
-        ArrayAdapter<Product> adapter = new propertyArrayAdapter(getActivity(), 0, comp313_products);
-        listView.setAdapter(adapter);
         //add event listener so we can handle clicks
         view.post(new Runnable() {
             @Override
@@ -167,6 +255,12 @@ public class PM_Fragement extends Fragment {
         return view;
     }
 
+
+    // Setting product adapter object and assigning the product list
+    public void setProductsAdapter(List<Medicine> mlist){
+        ArrayAdapter<Medicine> adapter = new ProductsAdapter(getActivity(), 0, mlist);
+        productListView.setAdapter(adapter);
+    }
 
     private void setupViews() {
         //setupToolbar();
@@ -187,14 +281,10 @@ public class PM_Fragement extends Fragment {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {  }
         });
 
         SeekBar indicatorSizeSeekBar=(SeekBar) this.rootView.findViewById(R.id.seekbar_indicator_size);
@@ -208,14 +298,10 @@ public class PM_Fragement extends Fragment {
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) {    }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStopTrackingTouch(SeekBar seekBar) {    }
         });
 
         SwitchCompat loopSlidesSwitch=(SwitchCompat) this.rootView.findViewById(R.id.checkbox_loop_slides);

@@ -74,7 +74,7 @@
             android:layout_alignTop="@+id/price"
             android:layout_marginStart="19dp"
             android:layout_toEndOf="@+id/price"
-            android:background="#6FBBF7"
+            android:background="@color/btn_color_blue"
             android:padding="2dp"
             android:text="View"
             android:textColor="#ffffff"
@@ -88,7 +88,7 @@
             android:layout_alignTop="@+id/view"
             android:layout_marginStart="17dp"
             android:layout_toEndOf="@+id/view"
-            android:background="#f4a137"
+            android:background="@color/btn_color_orange"
             android:padding="2dp"
             android:text="Add to cart"
             android:textColor="#ffffff"
@@ -97,3 +97,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
