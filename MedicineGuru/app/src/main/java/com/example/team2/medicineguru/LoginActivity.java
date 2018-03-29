@@ -64,8 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 showSnackBar("Login successfull");
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 session.createLoginSession(user.getDisplayName(), user.getEmail(),user.getUid());
-             Intent i = new Intent(getApplicationContext(), MainActivity.class).putExtra("authToken", response.getIdpToken()).putExtra(message,user.getDisplayName());;
-
+             Intent i = new Intent(getApplicationContext(), MainActivity.class).putExtra("authToken", response.getIdpToken()).putExtra(message,user.getDisplayName());
                 startActivity(i);
                 finish();
             } else {

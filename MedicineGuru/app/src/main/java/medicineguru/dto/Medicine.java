@@ -29,8 +29,10 @@ public class Medicine {
     private String requirePrescription;
 
 
-    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, Double price, String requirePrescription) {
 
+
+
+    public Medicine(String name, String title, String description, int size, String color, List<Symptom> symptoms, List<String> images, Dose dosage, String form, Double price, String requirePrescription) {
         this.name = name;
         this.title = title;
         this.description = description;

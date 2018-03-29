@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
@@ -27,7 +28,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,22 +39,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import medicineguru.UtilityClasses.LoginSessionManager;
-
 import medicineguru.databasehandler.FireBaseDatabaseHandler;
 import medicineguru.databasehandler.ShoppingCartManager;
 import medicineguru.dto.Dose;
 import medicineguru.dto.Image;
-
 import medicineguru.dto.Medicine;
 import medicineguru.dto.ShoppingCart;
 import medicineguru.dto.ShoppingCartItem;
-
-import medicineguru.dto.Dose;
-import medicineguru.dto.Image;
-
-
 import medicineguru.dto.Symptom;
 import android.app.FragmentManager;
 import android.widget.TextView;
@@ -85,13 +77,9 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
         LoginSessionManager loginInfo;
         session = new LoginSessionManager(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //insertMedicine();
         setSupportActionBar(toolbar);
-
         //start_fragment = new Empty_Fragment();
-
         pm_fragment = new ProductListFragment();
-
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().add(R.id.pm_fragment, pm_fragment).addToBackStack(null).commit();
         loginInfo = new LoginSessionManager(this);
@@ -176,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-
         MenuItem itemCart = menu.findItem(R.id.action_cart);
         icon = (LayerDrawable) itemCart.getIcon();
         return true;
@@ -190,13 +177,10 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-
         if (id == R.id.action_cart) {
             ShoppingCartFragment shopingCartFragment = new ShoppingCartFragment();
             performTransition(shopingCartFragment);
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -207,9 +191,11 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
 
         /// Toast.makeText(this, "The Mistbelt Forests", Toast.LENGTH_SHORT).show();
         int id = item.getItemId();
-
-         if (id == R.id.nav_gallery) {
-
+ 
+     if (id == R.id.login) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        } else if (id == R.id.nav_share) {
             pm_fragment = new ProductListFragment();
             performTransition(pm_fragment);
         } else if (id == R.id.insert_medicine) {
@@ -237,24 +223,16 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
         return true;
     }
 
-    public void insertMedicine() {
-        Dose dose = new Dose(250, "mg");
-        Image img = new Image("/logo.png");
-        Symptom s1 = new Symptom("Neck pain");
-        Symptom s2 = new Symptom("Body Ache");
-        Image i1 = new Image("/logo1.png");
-        List<Symptom> ss = new ArrayList<Symptom>();
-        List<Image> ii = new ArrayList<Image>();
-        ss.add(s1);
-        ss.add(s2);
-        // Medicine medicine=new Medicine("Becosole","Becosole","description",10,"Red",ss,ii,dose,"Liquid",23);
-        //FireBaseDatabaseHandler db=new FireBaseDatabaseHandler();
-        //db.getAllMedicine();
-        //db.createMedicine(medicine);
-    }
 
     private void hideShowMenuItems() {
-        if (session.isLoggedIn()) {
+       if(session.isLoggedIn()){
+            if(session.getUserDetails().containsValue("brinderjitsingh30@gmail.com"))
+            {
+                navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(true);
+            }
+            else{
+                navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(false);
+            }
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
         } else {
@@ -263,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
             navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(false);
         }
     }
+
 
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
 
@@ -318,4 +297,5 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
     public void onCartChange(int i) {
         setBadgeCount(this, icon, Integer.toString(i));
     }
+
 }

@@ -44,9 +44,6 @@ public class Empty_Fragment extends Fragment {
          */
        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.productt_list_layout, container, false);
         setupViews();
-       // front_fragment = new Front_Fragement();
-        //FragmentManager fragmentManager = getFragmentManager();
-        //fragmentManager.beginTransaction().replace(R.id.pm_fragmentchild, front_fragment).commit();
         return rootView;
     }
 
