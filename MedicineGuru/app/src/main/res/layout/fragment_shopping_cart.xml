@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:id="@+id/mychecklist"
+android:orientation="vertical"
+android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/subtotalTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Cart Subtotal : "
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/item_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/item_count"
+
+            android:layout_marginTop="4dp"
+
+            android:text="Items"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/item_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="4dp"
+
+            android:text="(2)"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/shipping_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+
+            android:layout_below="@+id/subtotalTxt"
+
+            android:layout_marginTop="5dp"
+            android:text="Shipping Charges:"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/shipping_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/shipping_text"
+            android:layout_toRightOf="@+id/shipping_text"
+            android:text="$ 10"
+            android:textColor="?android:attr/colorMultiSelectHighlight"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_toRightOf="@+id/subtotalTxt"
+            android:text="$5700"
+            android:textColor="?android:attr/colorMultiSelectHighlight"
+            android:textSize="20dp"
+            android:visibility="invisible" />
+
+
+        <TextView
+            android:id="@+id/cart_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="12dp"
+            android:text="CART IS EMPTY"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+        <pl.droidsonroids.gif.GifTextView
+            android:id="@+id/loadingImg"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/loading"
+            android:gravity="top|center_horizontal" />
+
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/checkout"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+
+        android:layout_marginBottom="7dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/view"
+        android:background="@color/btn_color_orange"
+        android:padding="2dp"
+        android:paddingBottom="2dp"
+        android:paddingTop="2dp"
+        android:text="CHECKOUT"
+        android:textColor="#ffffff"
+        android:textSize="16dp" />
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:background="#BABABA" />
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="#FFFFFF">
+
+    </ListView>
+
+</LinearLayout>
