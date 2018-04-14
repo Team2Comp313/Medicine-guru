@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/itemImg"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="0.30"
+            app:srcCompat="@drawable/cart" />
+
+        <LinearLayout
+            android:layout_width="168dp"
+            android:layout_height="143dp"
+            android:layout_weight="0.65"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@+id/delete"
+                android:text=""
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_marginLeft="15dp"
+                android:id="@+id/product_mrpvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/product_mrp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/product_mrp"
+                android:text="$ 10"
+                android:textColor="?android:attr/colorMultiSelectHighlight"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/qty_text"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/view1" />
+
+
+
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/delete"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.001"
+            android:background="#FFFFFF"
+            android:scaleX="1"
+            android:scaleY="1"
+            android:src="@android:drawable/ic_delete" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
