@@ -18,6 +18,8 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import medicineguru.UtilityClasses.LoginSessionManager;
@@ -27,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     private static final int RC_SIGN_IN = 123;
     public static final String message = "com.example.team2.medicineguru.MESSAGE";
-
+    String[] adminList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +65,15 @@ public class LoginActivity extends AppCompatActivity {
                 // Successfully signed in
                 showSnackBar("Login successfull");
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                session.createLoginSession(user.getDisplayName(), user.getEmail(),user.getUid());
+                adminList = getResources().getStringArray(R.array.admin_list);
+                String role="user";
+                for (int i=0;i<adminList.length;i++){
+                    if(user.getEmail().equals(adminList[i]))
+                    {
+                        role="admin";
+                    }
+                }
+                session.createLoginSession(user.getDisplayName(), user.getEmail(),user.getUid(),role);
              Intent i = new Intent(getApplicationContext(), MainActivity.class).putExtra("authToken", response.getIdpToken()).putExtra(message,user.getDisplayName());
                 startActivity(i);
                 finish();

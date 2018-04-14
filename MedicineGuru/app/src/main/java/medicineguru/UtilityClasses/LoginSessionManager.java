@@ -22,18 +22,19 @@ public class LoginSessionManager {
     public static final String KEY_NAME = "name";
     public static final String KEY_EMAIL = "email";
     public static final String USER_ID = "userId";
-
+    public static final String Role="role";
     public LoginSessionManager(Context context){
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
-    public void createLoginSession(String name, String email,String userid){
+    public void createLoginSession(String name, String email,String userid,String role){
 
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(USER_ID, userid);
+        editor.putString(Role, role);
         editor.commit();
     }
     public HashMap<String, String> getUserDetails(){
@@ -41,6 +42,7 @@ public class LoginSessionManager {
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
         user.put(USER_ID, pref.getString(USER_ID, null));
+        user.put(USER_ID, pref.getString(Role, null));
         return user;
     }
     public void checkLogin(){

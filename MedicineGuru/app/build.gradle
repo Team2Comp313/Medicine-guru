@@ -44,6 +44,7 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:25.0.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
     compile 'com.github.bumptech.glide:glide:3.5.2'
+
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'
