@@ -25,10 +25,10 @@ public class OrderManager {
         order=new Order();
         db=new FireBaseDatabaseHandler();
     }
-    public void addOrder(Order order, String userId)
+    public void addOrder(Order order)
     {
         this.order=order;
-        this.userId=userId;
+     
         Query query = db.getmFirebaseInstance().getReference().child(node).child(userId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
