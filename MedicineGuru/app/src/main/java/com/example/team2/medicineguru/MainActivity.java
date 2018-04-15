@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
 
     private void hideShowMenuItems() {
        if(session.isLoggedIn()){
-            if(session.getUserDetails().containsValue("brinderjitsingh30@gmail.com"))
+            if(session.getUserDetails().containsValue("admin"))
             {
                 navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(true);
             }

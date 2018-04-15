@@ -28,7 +28,7 @@ public class OrderManager {
     public void addOrder(Order order)
     {
         this.order=order;
-     
+
         Query query = db.getmFirebaseInstance().getReference().child(node).child(userId);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
