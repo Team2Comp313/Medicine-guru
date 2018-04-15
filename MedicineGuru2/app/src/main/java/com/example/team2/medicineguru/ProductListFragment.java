@@ -130,10 +130,8 @@ public class ProductListFragment extends Fragment {
                 price.setText(String.valueOf("$"+prd.getPrice()));
 
                 //get the image associated with this property
-               // final int imageID = context.getResources().getIdentifier("medicine_comp313_3", "drawable", context.getPackageName());
-                //image.setImageResource(imageID);
-
-                new ImageDisplay(image).execute(prd.getImages().get(0));
+                final int imageID = context.getResources().getIdentifier("medicine_comp313_3", "drawable", context.getPackageName());
+                image.setImageResource(imageID);
 
                 Button button1 = (Button) view.findViewById(R.id.view);
                 addToCartBtn.setTag(position);
@@ -171,8 +169,8 @@ public class ProductListFragment extends Fragment {
                         Bundle args = new Bundle();
                         args.putString("title", prd.getTitle());
                         args.putString("desc", prd.getDescription());
-                        args.putString("price",String.valueOf(prd.getPrice()));
-                        args.putString("image", prd.getImages().get(0));
+                        args.putString("price", String.valueOf(prd.getPrice()));
+                        args.putString("image", "medicine_comp313_3");
                         //args.putString("featured", String.valueOf(comp313_products.get(position).getFeatured()));
                         ProductView pv = new ProductView();
                         pv.setArguments(args);
