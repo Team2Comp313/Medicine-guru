@@ -37,11 +37,12 @@ public class ProductView extends Fragment {
         title.setText(getArguments().getString("title"));
         description.setText(getArguments().getString("desc"));
         price.setText("$" + getArguments().getString("price"));
-        //String abc = getArguments().getString("image");
-        //Resources res = getResources();
-        //int resID = res.getIdentifier(abc , "drawable", getActivity().getPackageName());
-        //image.setImageResource(resID);
-        new ImageDisplay(image).execute(getArguments().getString("image"));
+        String abc = getArguments().getString("image");
+        Resources res = getResources();
+        int resID = res.getIdentifier(abc , "drawable", getActivity().getPackageName());
+        image.setImageResource(resID);
         return view;
     }
+
+
 }
