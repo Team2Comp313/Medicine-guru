@@ -42,7 +42,7 @@ public class LoginSessionManager {
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
         user.put(USER_ID, pref.getString(USER_ID, null));
-        user.put(USER_ID, pref.getString(Role, null));
+        user.put(Role, pref.getString(Role, null));
         return user;
     }
     public void checkLogin(){
