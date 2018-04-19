@@ -7,6 +7,7 @@ package com.example.team2.medicineguru;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.transition.Fade;
 import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
@@ -31,8 +34,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -64,6 +70,7 @@ public class ProductListFragment extends Fragment {
     private ArrayList<Medicine> comp313_products = new ArrayList<>();
     private BannerSlider bannerSlider;
     View rootView;
+    boolean search=false;
     private static final long MOVE_DEFAULT_TIME = 150;
     private static final long FADE_DEFAULT_TIME = 50;
     ShoppingCartManager cartManager;
@@ -72,12 +79,16 @@ public class ProductListFragment extends Fragment {
     private Context context;
     private String[] banners = {"","","sale_banner1","","sale_banner2","","sale_banner3"};
     private int bnrPos=0;
+    public String search_item;
+    Medicine prd;
+    private String desc;
+    List<Medicine> medicineList;
     //custom ArrayAdapater
     class ProductsAdapter extends ArrayAdapter<Medicine>{
         private Context context;
-        private List<Medicine> MedicineLists;
-        private String desc;
-        Medicine prd;
+        public List<Medicine> MedicineLists;
+
+
         //private String bannerRow;
         //constructor, call on creation
         public ProductsAdapter(Context context, int resource, List<Medicine> objects) {
@@ -98,9 +109,20 @@ public class ProductListFragment extends Fragment {
             //Log.w("myApp", bannerRow);
             //Log.w("myApp", Integer.toString(position));
             if(position==0){
-                rootView = LayoutInflater.from(getActivity()).inflate(R.layout.productt_list_layout, parent, false);
+                if(search)
+                {
+                    rootView = LayoutInflater.from(getActivity()).inflate(R.layout.product_layout, parent, false);
+                    setListItems(rootView,position);
+                }
+                else
+                {
+                    rootView = LayoutInflater.from(getActivity()).inflate(R.layout.productt_list_layout, parent, false);
+                    setupViews();
+
+                }
+
                 // this.bannerRow = "true";
-                setupViews();
+
                 view = rootView;
                 //getView(0,convertView,parent);
             }else {
@@ -113,78 +135,83 @@ public class ProductListFragment extends Fragment {
                     view = inflater.inflate(R.layout.product_layout, null);
                 }
                 Button addToCartBtn= (Button) view.findViewById(R.id.cart);
-                TextView description = (TextView) view.findViewById(R.id.description);
-                TextView title = (TextView) view.findViewById(R.id.title);
-                TextView price = (TextView) view.findViewById(R.id.price);
-                ImageView image = (ImageView) view.findViewById(R.id.image);
-
-                //display trimmed excerpt for description
-                int descriptionLength = prd.getDescription().length();
-                if (descriptionLength >= 100) {
-                    desc = prd.getDescription().substring(0, 100) + "...";
-                    description.setText(desc);
-                } else {
-                    description.setText(prd.getDescription());
-                }
-                title.setText(String.valueOf(prd.getTitle()));
-                price.setText(String.valueOf("$"+prd.getPrice()));
-
-                //get the image associated with this property
-               // final int imageID = context.getResources().getIdentifier("medicine_comp313_3", "drawable", context.getPackageName());
-                //image.setImageResource(imageID);
-
-                new ImageDisplay(image).execute(prd.getImages().get(0));
-
-                Button button1 = (Button) view.findViewById(R.id.view);
-                addToCartBtn.setTag(position);
-                addToCartBtn.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        int pos = Integer.parseInt(String.valueOf(v.getTag()));
-                        prd = MedicineLists.get(pos);
-                        ShoppingCartItem item=new ShoppingCartItem(prd.getTitle(),prd.getTitle(),prd.getPrice().toString(),"1");
-                        item.setImagepath(prd.getImages().get(0));
-                        item.setCarttemId(UUID.randomUUID().toString());
-                        //args.putString("featured", String.valueOf(comp313_products.get(position).getFeatured()));
-                        if(loginInfo.isLoggedIn())
-                        {
-                            cartManager.addCartItem(item,loginInfo.getUserDetails().get("userId"));
-                            Snackbar.make(v, "Added to cart sucessfully", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }
-                        else {
-                            Snackbar.make(v, "Please login to add medicine to cart", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
-                        }
-                        // FragmentManager fragmentManager = getFragmentManager();
-                        //  fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.pm_fragment,pv).commit();
-
-                    }
-                });
-                // Passing the position variable on button click
-                button1.setTag(position);
-                button1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int pos = Integer.parseInt(String.valueOf(v.getTag()));
-                        prd = MedicineLists.get(pos);
-                        Bundle args = new Bundle();
-                        args.putString("title", prd.getTitle());
-                        args.putString("desc", prd.getDescription());
-                        args.putString("price",String.valueOf(prd.getPrice()));
-                        args.putString("image", prd.getImages().get(0));
-                        //args.putString("featured", String.valueOf(comp313_products.get(position).getFeatured()));
-                        ProductView pv = new ProductView();
-                        pv.setArguments(args);
-                        performTransition(pv);
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.pm_fragment, pv).commit();
-                    }
-                });
+                setListItems(view,position);
             }
             return view;
         }
+        public void setListItems(View view,int position)
+        {
+            Button addToCartBtn= (Button) view.findViewById(R.id.cart);
+            TextView description = (TextView) view.findViewById(R.id.description);
+            TextView title = (TextView) view.findViewById(R.id.title);
+            TextView price = (TextView) view.findViewById(R.id.price);
+            ImageView image = (ImageView) view.findViewById(R.id.image);
+
+            //display trimmed excerpt for description
+            int descriptionLength = prd.getDescription().length();
+            if (descriptionLength >= 100) {
+                desc = prd.getDescription().substring(0, 100) + "...";
+                description.setText(desc);
+            } else {
+                description.setText(prd.getDescription());
+            }
+            title.setText(String.valueOf(prd.getTitle()));
+            price.setText(String.valueOf("$"+prd.getPrice()));
+
+
+
+            new ImageDisplay(image).execute(prd.getImages().get(0));
+
+            Button button1 = (Button) view.findViewById(R.id.view);
+            addToCartBtn.setTag(position);
+            addToCartBtn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    int pos = Integer.parseInt(String.valueOf(v.getTag()));
+                    prd = MedicineLists.get(pos);
+                    ShoppingCartItem item=new ShoppingCartItem(prd.getTitle(),prd.getTitle(),prd.getPrice().toString(),"1");
+                    item.setImagepath(prd.getImages().get(0));
+                    item.setCarttemId(UUID.randomUUID().toString());
+                    //args.putString("featured", String.valueOf(comp313_products.get(position).getFeatured()));
+                    if(loginInfo.isLoggedIn())
+                    {
+                        cartManager.addCartItem(item,loginInfo.getUserDetails().get("userId"));
+                        Snackbar.make(v, "Added to cart sucessfully", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    else {
+                        Snackbar.make(v, "Please login to add medicine to cart", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                    // FragmentManager fragmentManager = getFragmentManager();
+                    //  fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.pm_fragment,pv).commit();
+
+                }
+            });
+            // Passing the position variable on button click
+            button1.setTag(position);
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = Integer.parseInt(String.valueOf(v.getTag()));
+                    prd = MedicineLists.get(pos);
+                    Bundle args = new Bundle();
+                    args.putString("title", prd.getTitle());
+                    args.putString("desc", prd.getDescription());
+                    args.putString("price",String.valueOf(prd.getPrice()));
+                    args.putString("image", prd.getImages().get(0));
+                    //args.putString("featured", String.valueOf(comp313_products.get(position).getFeatured()));
+                    ProductView pv = new ProductView();
+                    pv.setArguments(args);
+                    performTransition(pv);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.pm_fragment, pv).commit();
+                }
+            });
+
+        }
     }
+
     private void performTransition(Fragment m)
     {
 
@@ -217,9 +244,65 @@ public class ProductListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         /**
          * Inflate the layout for this fragment         */
         final View view = inflater.inflate(R.layout.product_list_fragment, container, false);
+        medicineList=new ArrayList<Medicine>();
+        /**
+         * Author Deepak
+         * Search Code or Search bar
+         */
+        EditText openSearchActivity= (EditText) view.findViewById(R.id.editText);
+        openSearchActivity.addTextChangedListener(new TextWatcher() {//listener for the text change in the edittext search bar
+            public void onTextChanged(CharSequence s, int start, int before, int count) {//Search the text whenever change in the text
+                if(count>0) {
+                    search = true;//flag to display filtered product list or product list
+                    ArrayList<Medicine> filteredmedicineList = new ArrayList<Medicine>();
+                    EditText search = view.findViewById(R.id.editText);
+                    search_item = search.getText().toString();
+                    //filtering the product list based on the item to search
+                    for (Medicine medicine : medicineList) {
+                        if (medicine.getTitle().contains(search_item) || medicine.getDescription().contains(search_item)) {
+                            filteredmedicineList.add(medicine);
+                        }
+                    }
+                    setProductsAdapter(filteredmedicineList);//setting the adapter with the filtered list
+                }
+                //else statement to display the product list
+                else{
+                    search = false;
+                    setProductsAdapter(medicineList);}
+            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            public void afterTextChanged(Editable s) {
+
+
+
+            }
+        });
+       // ImageButton openSearchActivity = (ImageButton) view.findViewById(R.id.search_button);
+       /* openSearchActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search = true;
+                ArrayList<Medicine> filteredmedicineList=new ArrayList<Medicine>();
+                EditText search= view.findViewById(R.id.editText);
+                search_item=search.getText().toString();
+                for(Medicine medicine:medicineList){
+                    if(medicine.getTitle().contains(search_item)||medicine.getDescription().contains(search_item))
+                    {
+                        filteredmedicineList.add(medicine);
+                    }
+                }setProductsAdapter(filteredmedicineList);
+
+            }
+        });
+*/
 
         //Find list view and bind it with the custom adapter
         productListView = view.findViewById(R.id.customListView);
@@ -231,11 +314,12 @@ public class ProductListFragment extends Fragment {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Medicine> medicineList=new ArrayList<Medicine>();
+
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot medicine : dataSnapshot.getChildren()) {
                         Medicine data = medicine.getValue(Medicine.class);
                         medicineList.add(data);
+                        Log.d("inside main ","main");
                     }
                     setProductsAdapter(medicineList);
                 }
@@ -243,6 +327,7 @@ public class ProductListFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {     }
+
         });
 
 
@@ -258,6 +343,7 @@ public class ProductListFragment extends Fragment {
     }
 
 
+
     // Setting product adapter object and assigning the product list
     public void setProductsAdapter(List<Medicine> mlist){
         ArrayAdapter<Medicine> adapter = new ProductsAdapter(getActivity(), 0, mlist);
@@ -271,7 +357,10 @@ public class ProductListFragment extends Fragment {
         //setupSettingsUi();
     }
 
+
+
     private void setupSettingsUi() {
+
         final SeekBar intervalSeekBar=(SeekBar) this.rootView.findViewById(R.id.seekbar_interval);
         intervalSeekBar.setMax(10000);
         intervalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -344,7 +433,7 @@ public class ProductListFragment extends Fragment {
             public void onClick(View view) {
                 Uri uri = Uri.parse("https://github.com/saeedsh92/Banner-Slider");
 
-                if (Build.VERSION.SDK_INT>15) {
+                if (Build.VERSION.SDK_INT>=23) {
                     CustomTabsIntent.Builder intentBuilder = new CustomTabsIntent.Builder();
                     intentBuilder.setToolbarColor(ContextCompat.getColor(context, R.color.colorPrimary));
                     intentBuilder.setSecondaryToolbarColor(ContextCompat.getColor(context, R.color.colorPrimaryDark));

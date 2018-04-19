@@ -131,7 +131,8 @@ android:background="@color/white">
         android:paddingTop="2dp"
         android:text="CHECKOUT"
         android:textColor="#ffffff"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:onClick="on"/>
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"

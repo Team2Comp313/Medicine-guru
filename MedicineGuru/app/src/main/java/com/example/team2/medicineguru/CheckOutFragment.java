@@ -58,8 +58,8 @@ public class CheckOutFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
-        }
     }
+}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
