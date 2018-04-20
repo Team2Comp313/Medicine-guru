@@ -82,7 +82,6 @@ public class OrderListUserFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
                 if (dataSnapshot.exists()) {
                     order_list=new ArrayList<Order>();
                     for (DataSnapshot item : dataSnapshot.getChildren()) {
@@ -91,8 +90,6 @@ public class OrderListUserFragment extends Fragment {
                         {
                             order_list.add(thisOrder .getValue());
                         }
-
-
 
                     }
                 }

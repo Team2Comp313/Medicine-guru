@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
     NavigationView navigationView;
 
     ProductListFragment pm_fragment;
+    OrderListUserFragment order_fragment;
     LayerDrawable icon;
     int cartcount = 0;
     FireBaseDatabaseHandler db;
@@ -184,7 +185,6 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -198,7 +198,10 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
         } else if (id == R.id.nav_share) {
             pm_fragment = new ProductListFragment();
             performTransition(pm_fragment);
-        } else if (id == R.id.insert_medicine) {
+        } else if (id == R.id.nav_order) {
+         order_fragment = new OrderListUserFragment();
+         performTransition(order_fragment);
+     } else if (id == R.id.insert_medicine) {
              startActivity(new Intent(MainActivity.this, InsertMedicine.class));
              finish();
          }
@@ -223,15 +226,16 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
         return true;
     }
 
-
     private void hideShowMenuItems() {
        if(session.isLoggedIn()){
-            if(session.getUserDetails().containsValue("admin"))
+            if(session.getUserDetails().containsValue("deepakkalsi13@gmail.com"))
             {
                 navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(true);
+                navigationView.getMenu().findItem(R.id.nav_order).setVisible(true);
             }
             else{
                 navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_order).setVisible(false);
             }
             navigationView.getMenu().findItem(R.id.logout).setVisible(true);
             navigationView.getMenu().findItem(R.id.login).setVisible(false);
@@ -239,6 +243,8 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
             navigationView.getMenu().findItem(R.id.login).setVisible(true);
             navigationView.getMenu().findItem(R.id.logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.insert_medicine).setVisible(false);
+           navigationView.getMenu().findItem(R.id.nav_order).setVisible(false);
+
         }
     }
 
