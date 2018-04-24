@@ -25,6 +25,7 @@ import java.io.Console;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -76,7 +77,6 @@ public class InsertMedicine extends AppCompatActivity {
         description = findViewById(R.id.descriptionTxt);
         size = findViewById(R.id.sizeTxt);
         db=new FireBaseDatabaseHandler();
-        setContentView(R.layout.activity_insert_medicine);
         medicineImage = findViewById(R.id.med_img);
         dose_amount = findViewById(R.id.dosageAmountTxt);
         colorSpinner = findViewById(R.id.colorSpinner);
@@ -142,7 +142,8 @@ public class InsertMedicine extends AppCompatActivity {
     public void uploadMedicineImage(){
 
         try{
-            StorageReference imageRef=db.getStorageRefernce().child("images/"+ UUID.randomUUID().toString());
+            FirebaseStorage storage=FirebaseStorage.getInstance();
+            StorageReference imageRef=storage.getReference().child("images/"+ UUID.randomUUID().toString());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] imageData = baos.toByteArray();
@@ -164,9 +165,10 @@ public class InsertMedicine extends AppCompatActivity {
                         List<String> imageList=new ArrayList<String>();
                         imageList.add(imgPath);
 
-                        //List<Image> to be changed to Image.
 
-                        medicine = new Medicine(name.getText().toString(),title.getText().toString(), description.getText().toString(),Integer.parseInt(size.getText().toString()),colorSpinner.getSelectedItem().toString(),symptomsOfMedicine,imageList,dose1,formSpinner.getSelectedItem().toString(),Double.parseDouble(price.getText().toString()),requirePrescriptionSpinner.getSelectedItem().toString());
+int sizeconverte=Integer.parseInt(size.getText().toString().trim());
+double priceconverted=Double.parseDouble(price.getText().toString());
+                        medicine = new Medicine(name.getText().toString(),title.getText().toString(), description.getText().toString(),sizeconverte,colorSpinner.getSelectedItem().toString(),symptomsOfMedicine,imageList,dose1,formSpinner.getSelectedItem().toString(),priceconverted,requirePrescriptionSpinner.getSelectedItem().toString());
                         db.createMedicine(medicine);
 
                         uploaded=true;

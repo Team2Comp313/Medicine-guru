@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="@string/medicine_size"
-                android:inputType="number" />
+                android:inputType="numberSigned" />
 
             <EditText
                 android:id="@+id/priceTxt"
