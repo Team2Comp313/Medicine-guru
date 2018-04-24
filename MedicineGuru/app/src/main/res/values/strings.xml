@@ -38,7 +38,7 @@
 
     </array>
     <string name="title_activity_insert_medicine">InsertMedicineActivity</string>
-    <string name="insert_medicine_title">Enter Medicine Details</string>
+    <string name="insert_medicine_title">Medicine Details</string>
     <string name="medicine_price">Price</string>
     <string name="medicine_name">Name</string>
     <string name="medicine_title">Title</string>
@@ -107,6 +107,17 @@
         <item>Paste</item>
         <item>Sprays</item>
     </string-array>
+
+    <string name="about_text">
+        <item>The vision of this android app is to reach every individual who buy medicines. In current system, after getting prescription from the doctor a patient visits pharmacy and wait in queues to get prescribed medicine. Our app allows the patients after getting the prescriptions can upload their prescription and order medicines. Our app helps to avoid the overhead of going to the stores to buy the medicines. After placing the order of medicine and once the prescription is verified, users will receive a notification that their order will be processed and shipped. Our focus is to provide the best services to the customers and making lives easier by providing service to door.</item>
+        <item>
+            \n\n
+        </item>
+        <item>
+            Medicine guru is a user-friendly android app that solves the above described problem. Medicine guru is an innovative android app that lets patients order medicine from anywhere. Users can browse medicines without logging in into the system. But to make purchases they need to register and login into the system. Over the counter medicines that does not require any prescription can be ordered without uploading prescription but for medicines that need doctor’s prescription user need to upload doctor’s prescription.
+        </item>
+    </string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

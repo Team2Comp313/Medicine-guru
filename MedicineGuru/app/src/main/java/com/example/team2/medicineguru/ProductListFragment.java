@@ -83,6 +83,7 @@ public class ProductListFragment extends Fragment {
     Medicine prd;
     private String desc;
     List<Medicine> medicineList;
+    EditText openSearchActivity;
     //custom ArrayAdapater
     class ProductsAdapter extends ArrayAdapter<Medicine>{
         private Context context;
@@ -254,7 +255,7 @@ public class ProductListFragment extends Fragment {
          * Author Deepak
          * Search Code or Search bar
          */
-        EditText openSearchActivity= (EditText) view.findViewById(R.id.editText);
+         openSearchActivity= (EditText) view.findViewById(R.id.editText);
         openSearchActivity.addTextChangedListener(new TextWatcher() {//listener for the text change in the edittext search bar
             public void onTextChanged(CharSequence s, int start, int before, int count) {//Search the text whenever change in the text
                 if(count>0) {
@@ -285,6 +286,7 @@ public class ProductListFragment extends Fragment {
 
             }
         });
+
        // ImageButton openSearchActivity = (ImageButton) view.findViewById(R.id.search_button);
        /* openSearchActivity.setOnClickListener(new View.OnClickListener() {
             @Override
