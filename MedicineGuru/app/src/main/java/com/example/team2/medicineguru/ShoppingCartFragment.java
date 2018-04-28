@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,6 +22,9 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.transition.Fade;
+import android.transition.TransitionInflater;
+import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,8 +60,8 @@ import pl.droidsonroids.gif.GifTextureView;
 
 @SuppressLint("ShowToast")
 public class ShoppingCartFragment extends Fragment  {
-
-
+    private static final long MOVE_DEFAULT_TIME = 150;
+    private static final long FADE_DEFAULT_TIME = 50;
     private OnCartChangeListener mListener;
     FireBaseDatabaseHandler db;
     LoginSessionManager loginInfo;
@@ -77,13 +82,12 @@ public class ShoppingCartFragment extends Fragment  {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         myFragmentView = inflater.inflate(R.layout.fragment_shopping_cart, container, false);
         db=new FireBaseDatabaseHandler();
         loadingImg=(GifTextView) myFragmentView.findViewById(R.id.loadingImg);
         cart_list = new ArrayList<>();
-fragloaded=true;
+        fragloaded=true;
         loginInfo=new LoginSessionManager(getContext());
         if(!loginInfo.isLoggedIn())
         {
@@ -243,6 +247,16 @@ fragloaded=true;
 
 
         lv1.setAdapter(new custom_list_one(this.getActivity(),cart_list));
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Payment_Fragment pay = new Payment_Fragment();
+               // FragmentManager fragmentManager = getFragmentManager();
+               // fragmentManager.beginTransaction().add(R.id.pm_fragment, pay).addToBackStack(null).commit();
+                performTransition(pay);
+            }
+        });
 
     }
     public static   void setBadgeCount(Context context, LayerDrawable icon, String count) {
@@ -570,5 +584,33 @@ fragloaded=true;
 
     }
 
+    private void performTransition(Fragment m)
+    {
 
+        FragmentManager mFragmentManager=getFragmentManager();
+        Fragment previousFragment = mFragmentManager.findFragmentById(R.id.pm_fragment);
+        Fragment nextFragment = m;
+
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+
+        // 1. Exit for Previous Fragment
+        Fade exitFade = new Fade();
+        exitFade.setDuration(FADE_DEFAULT_TIME);
+        previousFragment.setExitTransition(exitFade);
+
+        // 2. Shared Elements Transition
+        TransitionSet enterTransitionSet = new TransitionSet();
+        enterTransitionSet.addTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+        enterTransitionSet.setDuration(MOVE_DEFAULT_TIME);
+        enterTransitionSet.setStartDelay(FADE_DEFAULT_TIME);
+        nextFragment.setSharedElementEnterTransition(enterTransitionSet);
+
+        // 3. Enter Transition for New Fragment
+        Fade enterFade = new Fade();
+        enterFade.setStartDelay(MOVE_DEFAULT_TIME + FADE_DEFAULT_TIME);
+        enterFade.setDuration(FADE_DEFAULT_TIME);
+        nextFragment.setEnterTransition(enterFade);
+        fragmentTransaction.replace(R.id.pm_fragment, nextFragment);
+        fragmentTransaction.addToBackStack(null).commitAllowingStateLoss();
+    }
 }

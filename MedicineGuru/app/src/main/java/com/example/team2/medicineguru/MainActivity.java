@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
 
     }
 
-    private void performTransition(Fragment m) {
+    public void performTransition(Fragment m) {
         if (isDestroyed()) {
             return;
         }
