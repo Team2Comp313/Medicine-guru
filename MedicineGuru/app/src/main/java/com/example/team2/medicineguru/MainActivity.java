@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -28,6 +29,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.team2.medicineguru.OrderListUserFragment.OnFragmentInteractionListener;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -41,10 +44,13 @@ import java.util.List;
 import java.util.Map;
 import medicineguru.UtilityClasses.LoginSessionManager;
 import medicineguru.databasehandler.FireBaseDatabaseHandler;
+import medicineguru.databasehandler.OrderManager;
 import medicineguru.databasehandler.ShoppingCartManager;
 import medicineguru.dto.Dose;
 import medicineguru.dto.Image;
 import medicineguru.dto.Medicine;
+import medicineguru.dto.Order;
+import medicineguru.dto.OrderItem;
 import medicineguru.dto.ShoppingCart;
 import medicineguru.dto.ShoppingCartItem;
 import medicineguru.dto.Symptom;
@@ -53,12 +59,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity implements ShoppingCartFragment.OnCartChangeListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements ShoppingCartFragment.OnCartChangeListener, NavigationView.OnNavigationItemSelectedListener ,OnFragmentInteractionListener, AboutUsFragment.OnFragmentInteractionListener, DevelopersFragment.OnFragmentInteractionListener{
     LoginSessionManager session;
     NavigationView navigationView;
 
     ProductListFragment pm_fragment;
     OrderListUserFragment order_fragment;
+    AboutUsFragment about_us_fragment;
+    DevelopersFragment developers_fragment;
     LayerDrawable icon;
     int cartcount = 0;
     FireBaseDatabaseHandler db;
@@ -88,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
             String userId = loginInfo.getUserDetails().get("userId");
             ShoppingCartManager shoppingCart = new ShoppingCartManager(userId);
             db.getmFirebaseInstance().getReference();
+OrderManager om=new OrderManager(loginInfo.getUserDetails().get("userId"));
+
 
 
             Query query = db.getmFirebaseInstance().getReference().child("ShoppingCarts").orderByChild("userId").equalTo(userId);
@@ -195,16 +205,22 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
      if (id == R.id.login) {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_gallery) {
             pm_fragment = new ProductListFragment();
             performTransition(pm_fragment);
         } else if (id == R.id.nav_order) {
          order_fragment = new OrderListUserFragment();
          performTransition(order_fragment);
-     } else if (id == R.id.insert_medicine) {
+        } else if (id == R.id.insert_medicine) {
              startActivity(new Intent(MainActivity.this, InsertMedicine.class));
              finish();
-         }
+        }else if (id == R.id.about_us) {
+         about_us_fragment = new AboutUsFragment();
+         performTransition(about_us_fragment);
+        }else if (id == R.id.developer) {
+         developers_fragment = new DevelopersFragment();
+         performTransition(developers_fragment);
+     }
         else if (id == R.id.login) {
              startActivity(new Intent(MainActivity.this, LoginActivity.class));
              finish();
@@ -304,4 +320,8 @@ public class MainActivity extends AppCompatActivity implements ShoppingCartFragm
         setBadgeCount(this, icon, Integer.toString(i));
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

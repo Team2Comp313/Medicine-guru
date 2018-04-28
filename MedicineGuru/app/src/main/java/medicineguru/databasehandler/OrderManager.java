@@ -19,7 +19,7 @@ public class OrderManager {
     private ShoppingCartItem cartItem;
     final FireBaseDatabaseHandler db;
     String key;
-    final String node="Orders";
+    final String node="OrderList";
     public OrderManager(String userId) {
         this.userId=userId;
         order=new Order();
@@ -51,7 +51,8 @@ public class OrderManager {
 
     }
     public void createUserAndAddOrder(){
-        db.getNodeReference(node).child(userId).setValue(order);
+        db.getNodeReference(node).child(userId).setValue("");
+        db.getNodeReference(node).child(userId).push().setValue(order);
     }
     public void addOrderToUserOrderList(){
         db.getNodeReference(node).child(userId).push().setValue(order);

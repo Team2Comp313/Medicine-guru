@@ -19,7 +19,7 @@
 
         <item
             android:id="@+id/nav_order"
-            android:icon="@drawable/productlist"
+            android:icon="@drawable/orders"
             android:title="Orders" />
 
         <item
@@ -31,11 +31,11 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/developer"
                 android:icon="@drawable/developers"
                 android:title="Developers" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/about_us"
                 android:icon="@drawable/aboutus"
                 android:title="About us" />
         </menu>
