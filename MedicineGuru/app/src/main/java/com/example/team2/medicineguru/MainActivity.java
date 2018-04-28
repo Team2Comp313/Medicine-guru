@@ -284,7 +284,7 @@ OrderManager om=new OrderManager(loginInfo.getUserDetails().get("userId"));
 
     }
 
-    public void performTransition(Fragment m) {
+    private void performTransition(Fragment m) {
         if (isDestroyed()) {
             return;
         }
